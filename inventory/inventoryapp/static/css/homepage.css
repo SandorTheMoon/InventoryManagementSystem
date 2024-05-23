@@ -1,0 +1,65 @@
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@700&display=swap");
+
+* {
+    margin: 0;
+    padding: 0;
+    font-family: 'Open Sans', sans-serif;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    overflow: visible;
+}
+
+section {
+    height: 100vh;
+    margin: 0px;
+    box-sizing: border-box;
+    min-height: fit-content;
+}
+
+
+/* --- NAVIGATION BAR STYLE --- */
+.header-container {
+    background-color: aquamarine;
+    position: relative;
+    display: flex;
+
+    align-items: center;
+    gap: 10px;
+
+    height: 60px;
+    width: 100%;
+}
+
+.header-container h1 {
+    margin-right: 10px;
+}
+
+
+/* --- HOME PAGE STYLE --- */
+.product-list-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    margin-top: 30px;
+}
+
+
+/* --- ADD PRODUCT PAGE STYLE --- */
+.add-product-title-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+.add-product-form-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 30px;
+}

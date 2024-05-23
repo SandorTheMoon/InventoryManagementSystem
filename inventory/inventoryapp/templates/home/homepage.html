@@ -1,0 +1,58 @@
+{% extends 'header/navbar.html' %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/homepage.css' %}">
+    <title>Welcome!</title>
+</head>
+<body>
+
+    <section>
+        {% block navigation_bar %}
+        {{ block.super }}
+        
+        {% if products_by_category %}
+            {% for category, products in products_by_category.items %}
+                <div class="product-list-container">
+                    <h2>{{ category }}</h2>
+                    <table align="center" border="2">
+                        <thead>
+                            <tr>
+                                <th width="50px">Name</th>
+                                <th width="50px">Description</th>
+                                <th width="50px">Price</th>
+                                <th width="50px">Quantity in Stock</th>
+                                <th width="50px">Unit of Measurement</th>
+                                <th width="50px">Reorder Level</th>
+                                <th width="50px">Supplier</th>
+                            </tr>
+                        </thead>
+                        <tbody align="center">
+                            {% for product in products %}
+                                <tr>
+                                    <td>{{ product.name }}</td>
+                                    <td>{{ product.description }}</td>
+                                    <td>{{ product.price }}</td>
+                                    <td>{{ product.quantity_in_stock }}</td>
+                                    <td>{{ product.unit_of_measurement }}</td>
+                                    <td>{{ product.reorder_level }}</td>
+                                    <td>{{ product.supplier }}</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            {% endfor %}
+        {% else %}
+            <p>No products available.</p>
+        {% endif %}
+
+        {% endblock %}
+    </section>
+
+</body>
+</html>

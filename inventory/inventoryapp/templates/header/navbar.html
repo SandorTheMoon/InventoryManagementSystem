@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/homepage.css' %}">
+</head>
+<body> 
+    {% block navigation_bar %}
+
+    <div class="header-container">
+        <h1>Company's IMS</h1>
+
+        <a href="{% url 'home' %}"><h3>Home</h3></a>
+        <a href="{% url 'addproduct' %}"><h3>Add Product</h3></a>
+        <a href="{% url 'home' %}"><h3>Manage Inventory</h3></a>
+
+        <form action="{% url 'logout' %}" method="POST">
+            {% csrf_token %}
+            <button class="logout-button" type="submit">Logout</button>
+        </form>
+    </div>
+
+    {% endblock %}
+</body>
+</html>
