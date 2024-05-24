@@ -36,17 +36,8 @@ def logout_page(request):
 
 @login_required(login_url="/login/")
 def home_page(request):
-    products_by_category = {}
     products = Product.objects.all()
-
-    for product in products:
-        if product.category in products_by_category:
-            products_by_category[product.category].append(product)
-            
-        else:
-            products_by_category[product.category] = [product]
-
-    return render(request, "home/homepage.html", {'products_by_category': products_by_category})
+    return render(request, "home/homepage.html", {'products': products})
 
 
 @login_required(login_url="/login/")

@@ -14,42 +14,43 @@
     <section>
         {% block navigation_bar %}
         {{ block.super }}
-        
-        {% if products_by_category %}
-            {% for category, products in products_by_category.items %}
-                <div class="product-list-container">
-                    <h2>{{ category }}</h2>
-                    <table align="center" border="2">
-                        <thead>
-                            <tr>
-                                <th width="50px">Name</th>
-                                <th width="50px">Description</th>
-                                <th width="50px">Price</th>
-                                <th width="50px">Quantity in Stock</th>
-                                <th width="50px">Unit of Measurement</th>
-                                <th width="50px">Reorder Level</th>
-                                <th width="50px">Supplier</th>
-                            </tr>
-                        </thead>
-                        <tbody align="center">
-                            {% for product in products %}
-                                <tr>
-                                    <td>{{ product.name }}</td>
-                                    <td>{{ product.description }}</td>
-                                    <td>{{ product.price }}</td>
-                                    <td>{{ product.quantity_in_stock }}</td>
-                                    <td>{{ product.unit_of_measurement }}</td>
-                                    <td>{{ product.reorder_level }}</td>
-                                    <td>{{ product.supplier }}</td>
-                                </tr>
-                            {% endfor %}
-                        </tbody>
-                    </table>
-                </div>
-            {% endfor %}
+            
+        <div class="product-list-container">
+            {% if products %}
+            <table border="3">
+                <thead align="center">
+                    <tr>
+                        <th width="100px">ID</th>
+                        <th width="100px">Name</th>
+                        <th width="100px">Category</th>
+                        <th width="100px">Description</th>
+                        <th width="100px">Price</th>
+                        <th width="100px">Quantity in Stock</th>
+                        <th width="100px">Unit of Measurement</th>
+                        <th width="100px">Reorder Level</th>
+                        <th width="100px">Supplier</th>
+                    </tr>
+                </thead>
+                <tbody align="center">
+                    {% for product in products %}
+                        <tr>
+                            <td width="100px">{{ product.id }}
+                            <td width="100px">{{ product.name }}</td>
+                            <td width="100px">{{ product.category }}</td>
+                            <td width="100px">{{ product.description }}</td>
+                            <td width="100px">{{ product.price }}</td>
+                            <td width="100px">{{ product.quantity_in_stock }}</td>
+                            <td width="100px">{{ product.unit_of_measurement }}</td>
+                            <td width="100px">{{ product.reorder_level }}</td>
+                            <td width="100px">{{ product.supplier }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
         {% else %}
             <p>No products available.</p>
         {% endif %}
+        </div>
 
         {% endblock %}
     </section>
