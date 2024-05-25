@@ -1,4 +1,6 @@
 {% extends 'header/navbar.html' %}
+{% block navigation_bar %}
+    {{ block.super }}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -12,11 +14,12 @@
 <body>
 
     <section>
-        {% block navigation_bar %}
-        {{ block.super }}
-            
+
+        <div class="home-title">
+            <h1>Iventory</h1>
+        </div>
+        
         <div class="product-list-container">
-            {% if products %}
             <table border="3">
                 <thead align="center">
                     <tr>
@@ -29,31 +32,159 @@
                         <th width="100px">Unit of Measurement</th>
                         <th width="100px">Reorder Level</th>
                         <th width="100px">Supplier</th>
+                        <th width="200px">Action</th>
                     </tr>
                 </thead>
                 <tbody align="center">
-                    {% for product in products %}
+                    {% for product in meats_products %}
                         <tr>
-                            <td width="100px">{{ product.id }}
-                            <td width="100px">{{ product.name }}</td>
-                            <td width="100px">{{ product.category }}</td>
-                            <td width="100px">{{ product.description }}</td>
-                            <td width="100px">{{ product.price }}</td>
-                            <td width="100px">{{ product.quantity_in_stock }}</td>
-                            <td width="100px">{{ product.unit_of_measurement }}</td>
-                            <td width="100px">{{ product.reorder_level }}</td>
-                            <td width="100px">{{ product.supplier }}</td>
+                            <td>{{ product.id }}</td>
+                            <td>{{ product.name }}</td>
+                            <td>{{ product.category }}</td>
+                            <td>{{ product.description }}</td>
+                            <td>{{ product.price }}</td>
+                            <td>{{ product.quantity_in_stock }}</td>
+                            <td>{{ product.unit_of_measurement }}</td>
+                            <td>{{ product.reorder_level }}</td>
+                            <td>{{ product.supplier }}</td>
+                            <td>
+                                <a href="{% url 'update_product' 'Meats' product.id %}">Update</a> |
+                                <a href="{% url 'delete_product' product.category product.id %}">Delete</a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+
+                    {% for product in baked_products %}
+                        <tr>
+                            <td>{{ product.id }}</td>
+                            <td>{{ product.name }}</td>
+                            <td>{{ product.category }}</td>
+                            <td>{{ product.description }}</td>
+                            <td>{{ product.price }}</td>
+                            <td>{{ product.quantity_in_stock }}</td>
+                            <td>{{ product.unit_of_measurement }}</td>
+                            <td>{{ product.reorder_level }}</td>
+                            <td>{{ product.supplier }}</td>
+                            <td>
+                                <a href="{% url 'update_product' 'Baked' product.id %}">Update</a> |
+                                <a href="{% url 'delete_product' product.category product.id %}">Delete</a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+
+                    {% for product in dairy_products %}
+                        <tr>
+                            <td>{{ product.id }}</td>
+                            <td>{{ product.name }}</td>
+                            <td>{{ product.category }}</td>
+                            <td>{{ product.description }}</td>
+                            <td>{{ product.price }}</td>
+                            <td>{{ product.quantity_in_stock }}</td>
+                            <td>{{ product.unit_of_measurement }}</td>
+                            <td>{{ product.reorder_level }}</td>
+                            <td>{{ product.supplier }}</td>
+                            <td>
+                                <a href="{% url 'update_product' 'Dairy' product.id %}">Update</a> |
+                                <a href="{% url 'delete_product' product.category product.id %}">Delete</a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+
+                    {% for product in plants_products %}
+                        <tr>
+                            <td>{{ product.id }}</td>
+                            <td>{{ product.name }}</td>
+                            <td>{{ product.category }}</td>
+                            <td>{{ product.description }}</td>
+                            <td>{{ product.price }}</td>
+                            <td>{{ product.quantity_in_stock }}</td>
+                            <td>{{ product.unit_of_measurement }}</td>
+                            <td>{{ product.reorder_level }}</td>
+                            <td>{{ product.supplier }}</td>
+                            <td>
+                                <a href="{% url 'update_product' 'Plants' product.id %}">Update</a> |
+                                <a href="{% url 'delete_product' product.category product.id %}">Delete</a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+
+                    {% for product in condiments_products %}
+                        <tr>
+                            <td>{{ product.id }}</td>
+                            <td>{{ product.name }}</td>
+                            <td>{{ product.category }}</td>
+                            <td>{{ product.description }}</td>
+                            <td>{{ product.price }}</td>
+                            <td>{{ product.quantity_in_stock }}</td>
+                            <td>{{ product.unit_of_measurement }}</td>
+                            <td>{{ product.reorder_level }}</td>
+                            <td>{{ product.supplier }}</td>
+                            <td>
+                                <a href="{% url 'update_product' 'Condiments' product.id %}">Update</a> |
+                                <a href="{% url 'delete_product' product.category product.id %}">Delete</a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+
+                    {% for product in beverages_products %}
+                        <tr>
+                            <td>{{ product.id }}</td>
+                            <td>{{ product.name }}</td>
+                            <td>{{ product.category }}</td>
+                            <td>{{ product.description }}</td>
+                            <td>{{ product.price }}</td>
+                            <td>{{ product.quantity_in_stock }}</td>
+                            <td>{{ product.unit_of_measurement }}</td>
+                            <td>{{ product.reorder_level }}</td>
+                            <td>{{ product.supplier }}</td>
+                            <td>
+                                <a href="{% url 'update_product' 'Beverages' product.id %}">Update</a> |
+                                <a href="{% url 'delete_product' product.category product.id %}">Delete</a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+
+                    {% for product in dry_products %}
+                        <tr>
+                            <td>{{ product.id }}</td>
+                            <td>{{ product.name }}</td>
+                            <td>{{ product.category }}</td>
+                            <td>{{ product.description }}</td>
+                            <td>{{ product.price }}</td>
+                            <td>{{ product.quantity_in_stock }}</td>
+                            <td>{{ product.unit_of_measurement }}</td>
+                            <td>{{ product.reorder_level }}</td>
+                            <td>{{ product.supplier }}</td>
+                            <td>
+                                <a href="{% url 'update_product' 'Dry' product.id %}">Update</a> |
+                                <a href="{% url 'delete_product' product.category product.id %}">Delete</a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+
+                    {% for product in packaging_products %}
+                        <tr>
+                            <td>{{ product.id }}</td>
+                            <td>{{ product.name }}</td>
+                            <td>{{ product.category }}</td>
+                            <td>{{ product.description }}</td>
+                            <td>{{ product.price }}</td>
+                            <td>{{ product.quantity_in_stock }}</td>
+                            <td>{{ product.unit_of_measurement }}</td>
+                            <td>{{ product.reorder_level }}</td>
+                            <td>{{ product.supplier }}</td>
+                            <td>
+                                <a href="{% url 'update_product' 'Packaging' product.id %}">Update</a> |
+                                <a href="{% url 'delete_product' product.category product.id %}">Delete</a>
+                            </td>
                         </tr>
                     {% endfor %}
                 </tbody>
             </table>
-        {% else %}
-            <p>No products available.</p>
-        {% endif %}
         </div>
 
-        {% endblock %}
     </section>
 
 </body>
 </html>
+{% endblock %}

@@ -17,56 +17,13 @@
             <h1>Add Product</h1>
         </div>
 
-        <form method="post" enctype="multipart/form-data">
-            {% csrf_token %}
-
-            <div class="add-product-form-container">
-                
-                <div class="form-group">
-                    <label for="id_name">Product Name:</label>
-                    {{ form.name }}
-                </div>
-        
-                <div class="form-group">
-                    <label for="id_category">Category:</label>
-                    {{ form.category }}
-                </div>
-        
-                <div class="form-group">
-                    <label for="id_description">Description:</label>
-                    {{ form.description }}
-                </div>
-        
-                <div class="form-group">
-                    <label for="id_price">Price:</label>
-                    {{ form.price }}
-                </div>
-        
-                <div class="form-group">
-                    <label for="id_quantity_in_stock">Quantity in Stock:</label>
-                    {{ form.quantity_in_stock }}
-                </div>
-        
-                <div class="form-group">
-                    <label for="id_unit_of_measurement">Unit of Measurement (kg, L, Pcs, etc.):</label>
-                    {{ form.unit_of_measurement }}
-                </div>
-        
-                <div class="form-group">
-                    <label for="id_reorder_level">Reorder Level:</label>
-                    {{ form.reorder_level }}
-                </div>
-        
-                <div class="form-group">
-                    <label for="id_supplier">Supplier:</label>
-                    {{ form.supplier }}
-                </div>
-        
+        <div class="add-product-form-container">
+            <form method="post" action="{% url 'addproduct' %}">
+                {% csrf_token %}
+                {{ form.as_p }}
                 <button type="submit">Add Product</button>
-
-            </div>
-
-        </form>
+            </form>
+        </div>
         
         {% endblock %}
     </section>

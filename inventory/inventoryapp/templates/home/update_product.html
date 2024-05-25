@@ -1,0 +1,34 @@
+{% extends 'header/navbar.html' %}
+{% block navigation_bar %}
+    {{ block.super }}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/update_product.css' %}">
+    <title>Update Product</title>
+</head>
+<body>
+
+    <section>
+
+        <div class="update-product-title-container">
+            <h1>Update Product</h1>
+        </div>
+        
+        <div class="update-product-form-container">
+            <form method="post">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit">Update</button>
+            </form>
+        </div>
+
+    </section>
+
+</body>
+</html>
+{% endblock %}

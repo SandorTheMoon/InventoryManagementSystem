@@ -81,15 +81,50 @@ DATABASES = {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
     },
-
-    'try': {
+    'meats_db': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-
-
+        'NAME': BASE_DIR / 'meats.sqlite3',
+    },
+    'baked_db': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'baked.sqlite3',
+    },
+    'dairy_db': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'dairy.sqlite3',
+    },
+    'plants_db': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'plants.sqlite3',
+    },
+    'condiments_db': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'condiments.sqlite3',
+    },
+    'beverages_db': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'beverages.sqlite3',
+    },
+    'dry_db': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'dry.sqlite3',
+    },
+    'packaging_db': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'packaging.sqlite3',
+    },
 }
 
+DATABASE_ROUTERS = [
+    'inventory.routers.MeatsRouter',
+    'inventory.routers.BakedRouter',
+    'inventory.routers.DairyRouter',
+    'inventory.routers.PlantsRouter',
+    'inventory.routers.CondimentsRouter',
+    'inventory.routers.BeveragesRouter',
+    'inventory.routers.DryRouter',
+    'inventory.routers.PackagingRouter',
+]
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators

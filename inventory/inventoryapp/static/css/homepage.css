@@ -41,25 +41,15 @@ section {
 
 
 /* --- HOME PAGE STYLE --- */
-.product-list-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-
-    margin-top: 30px;
-}
-
-
-/* --- ADD PRODUCT PAGE STYLE --- */
-.add-product-title-container {
+.home-title h1 {
     display: flex;
     justify-content: center;
-    margin-top: 10px;
 }
 
-.add-product-form-container {
+.product-list-container {
     display: flex;
-    flex-direction: column;
-    align-items: center;
+    justify-content: center;
     margin-top: 30px;
 }
+
+/* --- ADD PRODUCT PAGE STYLE --- */
