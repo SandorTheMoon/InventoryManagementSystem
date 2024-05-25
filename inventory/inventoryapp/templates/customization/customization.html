@@ -1,0 +1,28 @@
+{% extends 'header/navbar.html' %}
+{% block navigation_bar %}
+    {{ block.super }}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/homepage.css' %}">
+    <title>Customization</title>
+</head>
+<body>
+    <div class="container">
+        <h1>Customization</h1>
+        <form action="{% url 'navbar_customization' %}" method="POST">
+            {% csrf_token %}
+            <button type="submit">Customize Navigation Bar UI</button>
+        </form>
+        <form action="{% url 'login_customization' %}" method="POST">
+            {% csrf_token %}
+            <button type="submit">Customize Login Page UI</button>
+        </form>
+    </div>
+</body>
+</html>
+{% endblock %}

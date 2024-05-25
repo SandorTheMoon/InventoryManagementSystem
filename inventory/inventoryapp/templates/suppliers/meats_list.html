@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meats List</title>
+</head>
+<body>
+    <h1>Meats List</h1>
+    <form action="{% url 'logout' %}">
+        <button>Logout</button>
+    </form>
+    
+    <table border="1">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Category</th>
+                <th>Description</th>
+                <th>Price</th>
+                <th>Quantity in Stock</th>
+                <th>Unit of Measurement</th>
+                <th>Reorder Level</th>
+                <th>Supplier</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for meat in meats %}
+            <tr>
+                <td>{{ meat.0 }}</td>
+                <td>{{ meat.1 }}</td>
+                <td>{{ meat.2 }}</td>
+                <td>{{ meat.3 }}</td>
+                <td>{{ meat.4 }}</td>
+                <td>{{ meat.5 }}</td>
+                <td>{{ meat.6 }}</td>
+                <td>{{ meat.7 }}</td>
+                <td>{{ meat.8 }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

@@ -1,7 +1,6 @@
 {% extends 'header/navbar.html' %}
 {% block navigation_bar %}
     {{ block.super }}
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,181 +9,174 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="{% static 'css/homepage.css' %}">
     <title>Welcome!</title>
+
+    
 </head>
 <body>
-
     <section>
-
         <div class="home-title">
-            <h1>Iventory</h1>
+            <h1>Inventory</h1>
         </div>
-        
+
         <div class="product-list-container">
-            <table border="3">
-                <thead align="center">
-                    <tr>
-                        <th width="100px">ID</th>
-                        <th width="100px">Name</th>
-                        <th width="100px">Category</th>
-                        <th width="100px">Description</th>
-                        <th width="100px">Price</th>
-                        <th width="100px">Quantity in Stock</th>
-                        <th width="100px">Unit of Measurement</th>
-                        <th width="100px">Reorder Level</th>
-                        <th width="100px">Supplier</th>
-                        <th width="200px">Action</th>
-                    </tr>
-                </thead>
-                <tbody align="center">
-                    {% for product in meats_products %}
-                        <tr>
-                            <td>{{ product.id }}</td>
-                            <td>{{ product.name }}</td>
-                            <td>{{ product.category }}</td>
-                            <td>{{ product.description }}</td>
-                            <td>{{ product.price }}</td>
-                            <td>{{ product.quantity_in_stock }}</td>
-                            <td>{{ product.unit_of_measurement }}</td>
-                            <td>{{ product.reorder_level }}</td>
-                            <td>{{ product.supplier }}</td>
-                            <td>
-                                <a href="{% url 'update_product' 'Meats' product.id %}">Update</a> |
-                                <a href="{% url 'delete_product' product.category product.id %}">Delete</a>
-                            </td>
-                        </tr>
-                    {% endfor %}
+            <div class="product-header">
+                <div class="product-cell">ID</div>
+                <div class="product-cell">Name</div>
+                <div class="product-cell">Category</div>
+                <div class="product-cell">Description</div>
+                <div class="product-cell">Price</div>
+                <div class="product-cell">Quantity in Stock</div>
+                <div class="product-cell">Unit of Measurement</div>
+                <div class="product-cell">Reorder Level</div>
+                <div class="product-cell">Supplier</div>
+                <div class="product-cell action">Action</div>
+            </div>
 
-                    {% for product in baked_products %}
-                        <tr>
-                            <td>{{ product.id }}</td>
-                            <td>{{ product.name }}</td>
-                            <td>{{ product.category }}</td>
-                            <td>{{ product.description }}</td>
-                            <td>{{ product.price }}</td>
-                            <td>{{ product.quantity_in_stock }}</td>
-                            <td>{{ product.unit_of_measurement }}</td>
-                            <td>{{ product.reorder_level }}</td>
-                            <td>{{ product.supplier }}</td>
-                            <td>
-                                <a href="{% url 'update_product' 'Baked' product.id %}">Update</a> |
-                                <a href="{% url 'delete_product' product.category product.id %}">Delete</a>
-                            </td>
-                        </tr>
-                    {% endfor %}
+            {% for product in meats_products %}
+                <div class="product-row">
+                    <div class="product-cell">{{ product.id }}</div>
+                    <div class="product-cell">{{ product.name }}</div>
+                    <div class="product-cell">{{ product.category }}</div>
+                    <div class="product-cell">{{ product.description }}</div>
+                    <div class="product-cell">{{ product.price }}</div>
+                    <div class="product-cell">{{ product.quantity_in_stock }}</div>
+                    <div class="product-cell">{{ product.unit_of_measurement }}</div>
+                    <div class="product-cell">{{ product.reorder_level }}</div>
+                    <div class="product-cell">{{ product.supplier }}</div>
+                    <div class="product-cell action">
+                        <a href="{% url 'update_product' 'Meats' product.id %}">Update</a> |
+                        <a href="{% url 'delete_product' product.category product.id %}">Delete</a>
+                    </div>
+                </div>
+            {% endfor %}
 
-                    {% for product in dairy_products %}
-                        <tr>
-                            <td>{{ product.id }}</td>
-                            <td>{{ product.name }}</td>
-                            <td>{{ product.category }}</td>
-                            <td>{{ product.description }}</td>
-                            <td>{{ product.price }}</td>
-                            <td>{{ product.quantity_in_stock }}</td>
-                            <td>{{ product.unit_of_measurement }}</td>
-                            <td>{{ product.reorder_level }}</td>
-                            <td>{{ product.supplier }}</td>
-                            <td>
-                                <a href="{% url 'update_product' 'Dairy' product.id %}">Update</a> |
-                                <a href="{% url 'delete_product' product.category product.id %}">Delete</a>
-                            </td>
-                        </tr>
-                    {% endfor %}
+            {% for product in baked_products %}
+                <div class="product-row">
+                    <div class="product-cell">{{ product.id }}</div>
+                    <div class="product-cell">{{ product.name }}</div>
+                    <div class="product-cell">{{ product.category }}</div>
+                    <div class="product-cell">{{ product.description }}</div>
+                    <div class="product-cell">{{ product.price }}</div>
+                    <div class="product-cell">{{ product.quantity_in_stock }}</div>
+                    <div class="product-cell">{{ product.unit_of_measurement }}</div>
+                    <div class="product-cell">{{ product.reorder_level }}</div>
+                    <div class="product-cell">{{ product.supplier }}</div>
+                    <div class="product-cell action">
+                        <a href="{% url 'update_product' 'Baked' product.id %}">Update</a> |
+                        <a href="{% url 'delete_product' product.category product.id %}">Delete</a>
+                    </div>
+                </div>
+            {% endfor %}
 
-                    {% for product in plants_products %}
-                        <tr>
-                            <td>{{ product.id }}</td>
-                            <td>{{ product.name }}</td>
-                            <td>{{ product.category }}</td>
-                            <td>{{ product.description }}</td>
-                            <td>{{ product.price }}</td>
-                            <td>{{ product.quantity_in_stock }}</td>
-                            <td>{{ product.unit_of_measurement }}</td>
-                            <td>{{ product.reorder_level }}</td>
-                            <td>{{ product.supplier }}</td>
-                            <td>
-                                <a href="{% url 'update_product' 'Plants' product.id %}">Update</a> |
-                                <a href="{% url 'delete_product' product.category product.id %}">Delete</a>
-                            </td>
-                        </tr>
-                    {% endfor %}
+            {% for product in dairy_products %}
+                <div class="product-row">
+                    <div class="product-cell">{{ product.id }}</div>
+                    <div class="product-cell">{{ product.name }}</div>
+                    <div class="product-cell">{{ product.category }}</div>
+                    <div class="product-cell">{{ product.description }}</div>
+                    <div class="product-cell">{{ product.price }}</div>
+                    <div class="product-cell">{{ product.quantity_in_stock }}</div>
+                    <div class="product-cell">{{ product.unit_of_measurement }}</div>
+                    <div class="product-cell">{{ product.reorder_level }}</div>
+                    <div class="product-cell">{{ product.supplier }}</div>
+                    <div class="product-cell action">
+                        <a href="{% url 'update_product' 'Dairy' product.id %}">Update</a> |
+                        <a href="{% url 'delete_product' product.category product.id %}">Delete</a>
+                    </div>
+                </div>
+            {% endfor %}
 
-                    {% for product in condiments_products %}
-                        <tr>
-                            <td>{{ product.id }}</td>
-                            <td>{{ product.name }}</td>
-                            <td>{{ product.category }}</td>
-                            <td>{{ product.description }}</td>
-                            <td>{{ product.price }}</td>
-                            <td>{{ product.quantity_in_stock }}</td>
-                            <td>{{ product.unit_of_measurement }}</td>
-                            <td>{{ product.reorder_level }}</td>
-                            <td>{{ product.supplier }}</td>
-                            <td>
-                                <a href="{% url 'update_product' 'Condiments' product.id %}">Update</a> |
-                                <a href="{% url 'delete_product' product.category product.id %}">Delete</a>
-                            </td>
-                        </tr>
-                    {% endfor %}
+            {% for product in plants_products %}
+                <div class="product-row">
+                    <div class="product-cell">{{ product.id }}</div>
+                    <div class="product-cell">{{ product.name }}</div>
+                    <div class="product-cell">{{ product.category }}</div>
+                    <div class="product-cell">{{ product.description }}</div>
+                    <div class="product-cell">{{ product.price }}</div>
+                    <div class="product-cell">{{ product.quantity_in_stock }}</div>
+                    <div class="product-cell">{{ product.unit_of_measurement }}</div>
+                    <div class="product-cell">{{ product.reorder_level }}</div>
+                    <div class="product-cell">{{ product.supplier }}</div>
+                    <div class="product-cell action">
+                        <a href="{% url 'update_product' 'Plants' product.id %}">Update</a> |
+                        <a href="{% url 'delete_product' product.category product.id %}">Delete</a>
+                    </div>
+                </div>
+            {% endfor %}
 
-                    {% for product in beverages_products %}
-                        <tr>
-                            <td>{{ product.id }}</td>
-                            <td>{{ product.name }}</td>
-                            <td>{{ product.category }}</td>
-                            <td>{{ product.description }}</td>
-                            <td>{{ product.price }}</td>
-                            <td>{{ product.quantity_in_stock }}</td>
-                            <td>{{ product.unit_of_measurement }}</td>
-                            <td>{{ product.reorder_level }}</td>
-                            <td>{{ product.supplier }}</td>
-                            <td>
-                                <a href="{% url 'update_product' 'Beverages' product.id %}">Update</a> |
-                                <a href="{% url 'delete_product' product.category product.id %}">Delete</a>
-                            </td>
-                        </tr>
-                    {% endfor %}
+            {% for product in condiments_products %}
+                <div class="product-row">
+                    <div class="product-cell">{{ product.id }}</div>
+                    <div class="product-cell">{{ product.name }}</div>
+                    <div class="product-cell">{{ product.category }}</div>
+                    <div class="product-cell">{{ product.description }}</div>
+                    <div class="product-cell">{{ product.price }}</div>
+                    <div class="product-cell">{{ product.quantity_in_stock }}</div>
+                    <div class="product-cell">{{ product.unit_of_measurement }}</div>
+                    <div class="product-cell">{{ product.reorder_level }}</div>
+                    <div class="product-cell">{{ product.supplier }}</div>
+                    <div class="product-cell action">
+                        <a href="{% url 'update_product' 'Condiments' product.id %}">Update</a> |
+                        <a href="{% url 'delete_product' product.category product.id %}">Delete</a>
+                    </div>
+                </div>
+            {% endfor %}
 
-                    {% for product in dry_products %}
-                        <tr>
-                            <td>{{ product.id }}</td>
-                            <td>{{ product.name }}</td>
-                            <td>{{ product.category }}</td>
-                            <td>{{ product.description }}</td>
-                            <td>{{ product.price }}</td>
-                            <td>{{ product.quantity_in_stock }}</td>
-                            <td>{{ product.unit_of_measurement }}</td>
-                            <td>{{ product.reorder_level }}</td>
-                            <td>{{ product.supplier }}</td>
-                            <td>
-                                <a href="{% url 'update_product' 'Dry' product.id %}">Update</a> |
-                                <a href="{% url 'delete_product' product.category product.id %}">Delete</a>
-                            </td>
-                        </tr>
-                    {% endfor %}
+            {% for product in beverages_products %}
+                <div class="product-row">
+                    <div class="product-cell">{{ product.id }}</div>
+                    <div class="product-cell">{{ product.name }}</div>
+                    <div class="product-cell">{{ product.category }}</div>
+                    <div class="product-cell">{{ product.description }}</div>
+                    <div class="product-cell">{{ product.price }}</div>
+                    <div class="product-cell">{{ product.quantity_in_stock }}</div>
+                    <div class="product-cell">{{ product.unit_of_measurement }}</div>
+                    <div class="product-cell">{{ product.reorder_level }}</div>
+                    <div class="product-cell">{{ product.supplier }}</div>
+                    <div class="product-cell action">
+                        <a href="{% url 'update_product' 'Beverages' product.id %}">Update</a> |
+                        <a href="{% url 'delete_product' product.category product.id %}">Delete</a>
+                    </div>
+                </div>
+            {% endfor %}
 
-                    {% for product in packaging_products %}
-                        <tr>
-                            <td>{{ product.id }}</td>
-                            <td>{{ product.name }}</td>
-                            <td>{{ product.category }}</td>
-                            <td>{{ product.description }}</td>
-                            <td>{{ product.price }}</td>
-                            <td>{{ product.quantity_in_stock }}</td>
-                            <td>{{ product.unit_of_measurement }}</td>
-                            <td>{{ product.reorder_level }}</td>
-                            <td>{{ product.supplier }}</td>
-                            <td>
-                                <a href="{% url 'update_product' 'Packaging' product.id %}">Update</a> |
-                                <a href="{% url 'delete_product' product.category product.id %}">Delete</a>
-                            </td>
-                        </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
+            {% for product in dry_products %}
+                <div class="product-row">
+                    <div class="product-cell">{{ product.id }}</div>
+                    <div class="product-cell">{{ product.name }}</div>
+                    <div class="product-cell">{{ product.category }}</div>
+                    <div class="product-cell">{{ product.description }}</div>
+                    <div class="product-cell">{{ product.price }}</div>
+                    <div class="product-cell">{{ product.quantity_in_stock }}</div>
+                    <div class="product-cell">{{ product.unit_of_measurement }}</div>
+                    <div class="product-cell">{{ product.reorder_level }}</div>
+                    <div class="product-cell">{{ product.supplier }}</div>
+                    <div class="product-cell action">
+                        <a href="{% url 'update_product' 'Dry' product.id %}">Update</a> |
+                        <a href="{% url 'delete_product' product.category product.id %}">Delete</a>
+                    </div>
+                </div>
+            {% endfor %}
+
+            {% for product in packaging_products %}
+                <div class="product-row">
+                    <div class="product-cell">{{ product.id }}</div>
+                    <div class="product-cell">{{ product.name }}</div>
+                    <div class="product-cell">{{ product.category }}</div>
+                    <div class="product-cell">{{ product.description }}</div>
+                    <div class="product-cell">{{ product.price }}</div>
+                    <div class="product-cell">{{ product.quantity_in_stock }}</div>
+                    <div class="product-cell">{{ product.unit_of_measurement }}</div>
+                    <div class="product-cell">{{ product.reorder_level }}</div>
+                    <div class="product-cell">{{ product.supplier }}</div>
+                    <div class="product-cell action">
+                        <a href="{% url 'update_product' 'Packaging' product.id %}">Update</a> |
+                        <a href="{% url 'delete_product' product.category product.id %}">Delete</a>
+                    </div>
+                </div>
+            {% endfor %}
         </div>
-
     </section>
-
 </body>
 </html>
 {% endblock %}

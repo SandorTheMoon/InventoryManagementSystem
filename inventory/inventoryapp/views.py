@@ -2,9 +2,10 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
+from django.http import HttpResponse
 
 from .forms import AddProductForm
-from .models import Meats, Baked, Dairy, Plants, Condiments, Beverages, Dry, Packaging
+from .models import Meats, Baked, Dairy, Plants, Condiments, Beverages, Dry, Packaging, NavBarCustomization, LoginCustomization
 
 
 def login_page(request):
@@ -25,7 +26,11 @@ def login_page(request):
             else:
                 messages.error(request, "Invalid login credentials!")
 
-        return render(request, "authentication/login.html")
+        customization = LoginCustomization.objects.first()
+        if customization is None:
+            customization = LoginCustomization.objects.create()
+
+        return render(request, "authentication/login.html", {'customization': customization})
 
 
 @login_required(login_url="/login/")
@@ -44,7 +49,11 @@ def home_page(request):
     beverages_products = Beverages.objects.all()
     dry_products = Dry.objects.all()
     packaging_products = Packaging.objects.all()
-
+    
+    customization = NavBarCustomization.objects.first()
+    if customization is None:
+        customization = NavBarCustomization.objects.create()
+    
     return render(request, "home/homepage.html", {
         'meats_products': meats_products,
         'baked_products': baked_products,
@@ -54,6 +63,8 @@ def home_page(request):
         'beverages_products': beverages_products,
         'dry_products': dry_products,
         'packaging_products': packaging_products,
+
+        'customization': customization
     })
 
 
@@ -61,6 +72,7 @@ def home_page(request):
 def addproduct_page(request):
     if request.method == "POST":
         form = AddProductForm(request.POST)
+
         if form.is_valid():
             category = form.cleaned_data['category']
             product_model = None
@@ -104,7 +116,11 @@ def addproduct_page(request):
     else:
         form = AddProductForm()
     
-    return render(request, "home/addproduct.html", {'form': form})
+    customization = NavBarCustomization.objects.first()
+    if customization is None:
+        customization = NavBarCustomization.objects.create()
+    
+    return render(request, "home/addproduct.html", {'form': form, 'customization': customization})
 
 
 @login_required(login_url="/login/")
@@ -167,7 +183,11 @@ def update_product(request, category, product_id):
             'supplier': product.supplier
         })
 
-    return render(request, "home/update_product.html", {'form': form})
+    customization = NavBarCustomization.objects.first()
+    if customization is None:
+        customization = NavBarCustomization.objects.create()
+
+    return render(request, "home/update_product.html", {'form': form, 'customization': customization})
 
 
 @login_required(login_url="/login/")
@@ -216,3 +236,88 @@ def delete_product(request, category, product_id):
     messages.success(request, f"Product '{product.name}' deleted successfully!")
     return redirect('home')
 
+
+# === FOR SUPPLIERS ===
+from django.db import connections
+
+@login_required(login_url="/login/")
+def meats_list(request):
+    with connections['meats_db'].cursor() as cursor:
+        cursor.execute("""
+            SELECT id, name, category, description, price, quantity_in_stock,
+                   unit_of_measurement, reorder_level, supplier 
+            FROM inventoryapp_meats;
+        """)
+        meats = cursor.fetchall()
+    return render(request, 'suppliers/meats_list.html', {'meats': meats})
+
+
+# === FOR CUSTOMIZING UI ===
+def customization(request):
+    customization = NavBarCustomization.objects.first()
+    if customization is None:
+        customization = NavBarCustomization.objects.create()
+
+    return render(request, "customization/customization.html", {'customization': customization})
+
+
+def navbar_customization(request):
+    customization = NavBarCustomization.objects.first()
+    if customization is None:
+        customization = NavBarCustomization.objects.create()
+    
+    return render(request, 'customization/navbar_customization.html', {'customization': customization})
+
+
+def save_navbar_customization(request):
+    if request.method == "POST":
+        background_color = request.POST.get('background_color')
+        company_text_color = request.POST.get('company_text_color')
+        button_text_color = request.POST.get('button_text_color')
+        company_name = request.POST.get('company_name')
+
+        customization = NavBarCustomization.objects.first()
+        if customization is None:
+            customization = NavBarCustomization.objects.create()
+
+        customization.background_color = background_color
+        customization.company_text_color = company_text_color
+        customization.button_text_color = button_text_color
+        customization.company_name = company_name
+        customization.save()
+
+    return redirect('customization')
+
+
+def login_customization(request):
+    Lcustomization = LoginCustomization.objects.first()
+    if Lcustomization is None:
+        Lcustomization = LoginCustomization.objects.create()
+
+    customization = NavBarCustomization.objects.first()
+    if customization is None:
+        customization = NavBarCustomization.objects.create()
+    
+    return render(request, 'customization/login_customization.html', {'Lcustomization': Lcustomization, 'customization': customization})
+
+
+def save_login_customization(request):
+    if request.method == "POST":
+        background_color = request.POST.get('background_color')
+        box_color = request.POST.get('box_color')
+        title_text_color = request.POST.get('title_text_color')
+        input_text_color = request.POST.get('input_text_color')
+        button_color = request.POST.get('button_color')
+
+        Lcustomization = LoginCustomization.objects.first()
+        if Lcustomization is None:
+            Lcustomization = LoginCustomization.objects.create()
+
+        Lcustomization.background_color = background_color
+        Lcustomization.box_color = box_color
+        Lcustomization.title_text_color = title_text_color
+        Lcustomization.input_text_color = input_text_color
+        Lcustomization.button_color = button_color
+        Lcustomization.save()
+
+    return redirect('login_customization')

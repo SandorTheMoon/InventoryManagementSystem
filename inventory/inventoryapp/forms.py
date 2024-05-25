@@ -1,7 +1,6 @@
 from django import forms
 
 
-
 class AddProductForm(forms.Form):
     CATEGORY_CHOICES = [
         ('Meats', 'Meats'),

@@ -22,8 +22,50 @@
         <div class="update-product-form-container">
             <form method="post">
                 {% csrf_token %}
-                {{ form.as_p }}
-                <button type="submit">Update</button>
+                
+                <div class="form-group">
+                    <label for="id_name">{{ form.name.label }}</label>
+                    {{ form.name }}
+                </div>
+
+                <div class="form-group">
+                    <label for="id_category">{{ form.category.label }}</label>
+                    {{ form.category }}
+                </div>
+
+                <div class="form-group">
+                    <label for="id_description">{{ form.description.label }}</label>
+                    {{ form.description }}
+                </div>
+
+                <div class="form-group">
+                    <label for="id_price">{{ form.price.label }}</label>
+                    {{ form.price }}
+                </div>
+
+                <div class="form-group">
+                    <label for="id_quantity">{{ form.quantity_in_stock.label }}</label>
+                    {{ form.quantity_in_stock }}
+                </div>
+
+                <div class="form-group">
+                    <label for="id_unit_of_measurement">{{ form.unit_of_measurement.label }}</label>
+                    {{ form.unit_of_measurement }}
+                </div>
+
+                <div class="form-group">
+                    <label for="id_reorder_level">{{ form.reorder_level.label }}</label>
+                    {{ form.reorder_level }}
+                </div>
+
+                <div class="form-group">
+                    <label for="id_supplier">{{ form.supplier.label }}</label>
+                    {{ form.supplier }}
+                </div>
+                
+                <div class="form-group">
+                    <button type="submit">Update</button>
+                </div>
             </form>
         </div>
 

@@ -1,0 +1,86 @@
+{% extends 'header/navbar.html' %}
+{% block navigation_bar %}
+    {{ block.super }}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/homepage.css' %}">
+    <title>Login Customization</title>
+
+    <style>
+        .preview-section {
+            background-color: {{ Lcustomization.background_color }};
+        }
+
+        .login-container {
+            background-color: {{ Lcustomization.box_color }}
+        }
+
+        .login-container h1 {
+            color: {{ Lcustomization.title_text_color }};
+        }
+
+        .login-container h4 {
+            color: {{ Lcustomization.input_text_color }};
+        }
+
+        .login-container button {
+            background-color: {{ Lcustomization.button_color }};
+        }
+    </style>
+</head>
+<body>
+    <section class="login-customization-section">
+        <div class="login-customization-container">
+            <h1>Login Page Customization</h1>
+            <form action="{% url 'save_login_customization' %}" method="POST">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="background_color">Background Color:</label>
+                    <input type="text" id="background_color" name="background_color" value="{{ Lcustomization.background_color }}">
+                </div>
+                <div class="form-group">
+                    <label for="box_color">Box Color:</label>
+                    <input type="text" id="box_color" name="box_color" value="{{ Lcustomization.box_color }}">
+                </div>
+                <div class="form-group">
+                    <label for="title_text_color">Title Text Color:</label>
+                    <input type="text" id="title_text_color" name="title_text_color" value="{{ Lcustomization.title_text_color }}">
+                </div>
+                <div class="form-group">
+                    <label for="input_text_color">Input Text Color:</label>
+                    <input type="text" id="input_text_color" name="input_text_color" value="{{ Lcustomization.input_text_color }}">
+                </div>
+                <div class="form-group">
+                    <label for="button_color">Button Color:</label>
+                    <input type="text" id="button_color" name="button_color" value="{{ Lcustomization.button_color }}">
+                </div>
+                <button type="submit">Save Customization</button>
+            </form>
+        </div>
+
+
+        <!-- Preview Section -->
+        <div class="preview-section">
+            <h2>Preview</h2>
+            <div class="login-container">
+                <h1>Login Page</h1>
+                <div class="form-group">
+                    <h4>Username:</h4>
+                    <input type="text" name="username" placeholder="Enter username">
+                </div>
+                <div class="form-group">
+                    <h4>Password:</h4>
+                    <input type="password" name="password" placeholder="Enter password">
+                </div>
+                <button type="submit">Login</button>
+            </div>
+        </div>
+    </section>
+</body>
+</html>
+{% endblock %}
