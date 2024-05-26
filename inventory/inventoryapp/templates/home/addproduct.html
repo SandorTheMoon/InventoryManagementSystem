@@ -1,4 +1,6 @@
 {% extends 'header/navbar.html' %}
+{% block navigation_bar %}
+    {{ block.super }}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,13 +8,28 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="{% static 'css/homepage.css' %}">
-    <title>Welcome!</title>
+    <title>Add Product</title>
+
+    <style>
+        body {
+            background-color: {{ Mcustomization.background_color }};
+        }
+
+        .add-product-title-container h1 {
+            color:  {{ Mcustomization.title_text_color }};
+        }
+
+        .add-product-form-container {
+            background-color: {{ Mcustomization.box_color }};
+        }
+
+        .add-product-form-container .form-group {
+            color: {{ Mcustomization.table_text_color }};
+        }
+    </style>    
 </head>
 <body>
     <section>
-        {% block navigation_bar %}
-        {{ block.super }}
-
         <div class="add-product-title-container">
             <h1>Add Product</h1>
         </div>
@@ -67,7 +84,7 @@
             </form>
         </div>
         
-        {% endblock %}
     </section>
 </body>
 </html>
+{% endblock %}

@@ -151,7 +151,7 @@ class NavBarCustomization(models.Model):
     company_name = models.CharField(max_length=100, default='Company Name')
 
     def __str__(self):
-        return 'NavBarCustomization'
+        return 'NavBar Customization'
     
 class LoginCustomization(models.Model):
     background_color = models.CharField(max_length=20, default='White')
@@ -161,4 +161,16 @@ class LoginCustomization(models.Model):
     button_color = models.CharField(max_length=20, default='Green')
 
     def __str__(self):
-        return 'LoginCustomization'
+        return 'Login Customization'
+
+class MainPageCustomization(models.Model):
+    background_color = models.CharField(max_length=20, default='White')
+    box_color = models.CharField(max_length=20, default='white')
+    title_text_color = models.CharField(max_length=20, default='Black')
+    table_header_text_color = models.CharField(max_length=20, default='Black')
+    table_header_color = models.CharField(max_length=20, default='#f4f4f4')
+    table_text_color = models.CharField(max_length=20, default='Black')
+    table_row_color = models.CharField(max_length=20, default='#fff')
+
+    def __str__(self):
+        return 'Main Page Customization'

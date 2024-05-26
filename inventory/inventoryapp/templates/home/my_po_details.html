@@ -15,71 +15,99 @@
         <h1>Purchase Order Detail</h1>
         <form method="post">
             {% csrf_token %}
-            <div class="detail-item">
-                <label for="company_name">Company Name:</label>
-                <span>{{ purchase_order.company_name }}</span>
-            </div>
-            <div class="detail-item">
-                <label for="company_address">Company Address:</label>
-                <span>{{ purchase_order.company_address }}</span>
-            </div>
-            <div class="detail-item">
-                <label for="supplier_name">Supplier Name:</label>
-                <span>{{ purchase_order.supplier_name }}</span>
-            </div>
-            <div class="detail-item">
-                <label for="supplier_address">Supplier Address:</label>
-                <span>{{ purchase_order.supplier_address }}</span>
-            </div>
-            <div class="detail-item">
-                <label for="date_issued">Date Issued:</label>
-                <span>{{ purchase_order.date_issued }}</span>
-            </div>
-            <div class="detail-item">
-                <label for="order_number">Order Number:</label>
-                <span>{{ purchase_order.order_number }}</span>
-            </div>
-            <div class="detail-item">
-                <label for="name">Product Name:</label>
-                <span>{{ purchase_order.name }}</span>
-            </div>
-            <div class="detail-item">
-                <label for="category">Category:</label>
-                <span>{{ purchase_order.category }}</span>
-            </div>
-            <div class="detail-item">
-                <label for="description">Description:</label>
-                <span>{{ purchase_order.description }}</span>
-            </div>
-            <div class="detail-item">
-                <label for="quantity">Quantity:</label>
-                <span>{{ purchase_order.quantity }}</span>
-            </div>
-            <div class="detail-item">
-                <label for="unit_of_measurement">Unit of Measurement:</label>
-                <span>{{ purchase_order.unit_of_measurement }}</span>
-            </div>
-            <div class="detail-item">
-                <label for="unit_price">Unit Price:</label>
-                <span>{{ purchase_order.unit_price }}</span>
-            </div>
-            <div class="detail-item">
-                <label for="subtotal">Subtotal:</label>
-                <span>{{ purchase_order.subtotal }}</span>
-            </div>
-            <div class="detail-item">
-                <label for="total_amount_payable">Total Amount Payable:</label>
-                <span>{{ purchase_order.total_amount_payable }}</span>
-            </div>
-            <div class="detail-item">
-                <label for="order_status">Order Status:</label>
-                <span>{{ purchase_order.get_order_status_display }}</span>
+
+            <div class="top-part">
+                <div class="top-half-part1">
+                    <div class="detail-item">
+                        <label for="company_name">Company Name:</label>
+                        <span>{{ purchase_order.company_name }}</span>
+                    </div>
+                    <div class="detail-item">
+                        <label for="company_address">Company Address:</label>
+                        <span>{{ purchase_order.company_address }}</span>
+                    </div>
+                    <div class="detail-item">
+                        <label for="supplier_name">Supplier Name:</label>
+                        <span>{{ purchase_order.supplier_name }}</span>
+                    </div>
+                    <div class="detail-item">
+                        <label for="supplier_address">Supplier Address:</label>
+                        <span>{{ purchase_order.supplier_address }}</span>
+                    </div>
+                </div>
+
+                <div class="top-half-part2">
+                    <div class="detail-item">
+                        <label for="date_issued">Date Issued:</label>
+                        <span>{{ purchase_order.date_issued }}</span>
+                    </div>
+                    <div class="detail-item">
+                        <label for="order_number">Order Number:</label>
+                        <span>{{ purchase_order.order_number }}</span>
+                    </div>
+                </div>  
             </div>
 
-            <div class="form-item">
-                {{ form.as_p }}
-                <button type="submit">Update Order Status</button>
+            <hr>
+
+            <div class="mid-part">
+                <div class="mid-half-part1">
+                    <div class="detail-item">
+                        <label for="name">Product Name:</label>
+                        <span>{{ purchase_order.name }}</span>
+                    </div>
+                    <div class="detail-item">
+                        <label for="category">Category:</label>
+                        <span>{{ purchase_order.category }}</span>
+                    </div>
+                    <div class="detail-item">
+                        <label for="description">Description:</label>
+                        <span>{{ purchase_order.description }}</span>
+                    </div>
+                    <div class="detail-item">
+                        <label for="quantity">Quantity:</label>
+                        <span>{{ purchase_order.quantity }}</span>
+                    </div>
+                    <div class="detail-item">
+                        <label for="unit_of_measurement">Unit of Measurement:</label>
+                        <span>{{ purchase_order.unit_of_measurement }}</span>
+                    </div>
+                </div>
+                
+                <div class="mid-half-part2">
+                    <div class="detail-item">
+                        <label for="unit_price">Unit Price:</label>
+                        <span>₱ {{ purchase_order.unit_price }}</span>
+                    </div>
+                    <div class="detail-item">
+                        <label for="subtotal">Subtotal:</label>
+                        <span>₱ {{ purchase_order.subtotal }}</span>
+                    </div>
+                </div>  
             </div>
+            
+            <hr>
+
+            <div class="bot-part-flex-end">
+                <div class="bot-part">
+                    <div class="detail-item">
+                        <label for="total_amount_payable">Total Amount Payable:</label>
+                        <span>₱ {{ purchase_order.total_amount_payable }}</span>
+                    </div>
+                    <div class="detail-item">
+                        <label for="order_status">Order Status:</label>
+                        <span>{{ purchase_order.get_order_status_display }}</span>
+                    </div>
+
+                    <hr>
+                    
+                    <div class="form-item">
+                        {{ form.as_p }}
+                        <button type="submit">Update Order Status</button>
+                    </div>
+                </div>
+            </div>
+
         </form>
     </div>
 </body>

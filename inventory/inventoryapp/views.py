@@ -9,7 +9,7 @@ import string
 from django.utils import timezone
 
 from .forms import AddProductForm, PurchaseOrderForm, PurchaseOrderStatusForm
-from .models import Meats, Baked, Dairy, Plants, Condiments, Beverages, Dry, Packaging, NavBarCustomization, LoginCustomization, PurchaseOrder
+from .models import Meats, Baked, Dairy, Plants, Condiments, Beverages, Dry, Packaging, NavBarCustomization, LoginCustomization, MainPageCustomization, PurchaseOrder
 
 
 def login_page(request):
@@ -57,6 +57,10 @@ def home_page(request):
     customization = NavBarCustomization.objects.first()
     if customization is None:
         customization = NavBarCustomization.objects.create()
+
+    Mcustomization = MainPageCustomization.objects.first()
+    if Mcustomization is None:
+        Mcustomization = MainPageCustomization.objects.create()
     
     return render(request, "home/homepage.html", {
         'meats_products': meats_products,
@@ -68,7 +72,8 @@ def home_page(request):
         'dry_products': dry_products,
         'packaging_products': packaging_products,
 
-        'customization': customization
+        'customization': customization,
+        'Mcustomization': Mcustomization
     })
 
 
@@ -123,8 +128,12 @@ def addproduct_page(request):
     customization = NavBarCustomization.objects.first()
     if customization is None:
         customization = NavBarCustomization.objects.create()
+
+    Mcustomization = MainPageCustomization.objects.first()
+    if Mcustomization is None:
+        Mcustomization = MainPageCustomization.objects.create()
     
-    return render(request, "home/addproduct.html", {'form': form, 'customization': customization})
+    return render(request, "home/addproduct.html", {'form': form, 'customization': customization, 'Mcustomization': Mcustomization})
 
 
 @login_required(login_url="/login/")
@@ -504,7 +513,11 @@ def customization(request):
     if customization is None:
         customization = NavBarCustomization.objects.create()
 
-    return render(request, "customization/customization.html", {'customization': customization})
+    Mcustomization = MainPageCustomization.objects.first()
+    if Mcustomization is None:
+        Mcustomization = MainPageCustomization.objects.create()
+
+    return render(request, "customization/customization.html", {'customization': customization, 'Mcustomization': Mcustomization})
 
 
 def navbar_customization(request):
@@ -567,3 +580,40 @@ def save_login_customization(request):
         Lcustomization.save()
 
     return redirect('login_customization')
+
+
+def mainpage_customization(request):
+    Mcustomization = MainPageCustomization.objects.first()
+    if Mcustomization is None:
+        Mcustomization = MainPageCustomization.objects.create()
+
+    customization = NavBarCustomization.objects.first()
+    if customization is None:
+        customization = NavBarCustomization.objects.create()
+    
+    return render(request, 'customization/mainpage_customization.html', {'Mcustomization': Mcustomization, 'customization': customization})
+
+def save_mainpage_customization(request):
+    if request.method == "POST":
+        background_color = request.POST.get('background_color')
+        box_color = request.POST.get('box_color')
+        title_text_color = request.POST.get('title_text_color')
+        table_header_text_color = request.POST.get('table_header_text_color')
+        table_header_color = request.POST.get('table_header_color')
+        table_text_color = request.POST.get('table_text_color')
+        table_row_color = request.POST.get('table_row_color')
+
+        Mcustomization = MainPageCustomization.objects.first()
+        if Mcustomization is None:
+            Mcustomization = MainPageCustomization.objects.create()
+
+        Mcustomization.background_color = background_color
+        Mcustomization.box_color = box_color
+        Mcustomization.title_text_color = title_text_color
+        Mcustomization.table_header_text_color = table_header_text_color
+        Mcustomization.table_header_color = table_header_color
+        Mcustomization.table_text_color = table_text_color
+        Mcustomization.table_row_color = table_row_color
+        Mcustomization.save()
+
+    return redirect('mainpage_customization')

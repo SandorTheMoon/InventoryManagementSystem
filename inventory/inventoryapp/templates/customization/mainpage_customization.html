@@ -1,0 +1,158 @@
+{% extends 'header/navbar.html' %}
+{% block navigation_bar %}
+    {{ block.super }}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/homepage.css' %}">
+    <title>Login Customization</title>
+
+    <style>
+        .main-preview-section {
+            background-color: {{ Mcustomization.background_color }};
+        }
+
+        .main-preview-section .product-list-container {
+            background-color: {{ Mcustomization.box_color }};
+        }
+
+        .main-preview-section .home-title h1 {
+            color: {{ Mcustomization.title_text_color }};
+        }
+
+        .main-preview-section .product-header {
+            color: {{ Mcustomization.table_header_text_color }}
+        }
+
+        .main-preview-section .product-header {
+            background-color: {{ Mcustomization.table_header_color }}
+        }
+
+        .main-preview-section .product-row {
+            color: {{ Mcustomization.table_text_color }}
+        }
+
+        .main-preview-section .product-row {
+            background-color: {{ Mcustomization.table_row_color }}
+        }
+    </style>
+</head>
+<body>
+    <section class="page-customization-section">
+        <div class="page-customization-container">
+            <h1>Main Page UI Customization</h1>
+            <form action="{% url 'save_mainpage_customization' %}" method="POST">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="background_color">Background Color:</label>
+                    <input type="text" id="background_color" name="background_color" value="{{ Mcustomization.background_color }}">
+                </div>
+                <div class="form-group">
+                    <label for="box_color">Box Color:</label>
+                    <input type="text" id="box_color" name="box_color" value="{{ Mcustomization.box_color }}">
+                </div>
+                <div class="form-group">
+                    <label for="title_text_color">Title Text Color:</label>
+                    <input type="text" id="title_text_color" name="title_text_color" value="{{ Mcustomization.title_text_color }}">
+                </div>
+                <div class="form-group">
+                    <label for="table_header_text_color">Table Header Text Color:</label>
+                    <input type="text" id="table_header_text_color" name="table_header_text_color" value="{{ Mcustomization.table_header_text_color }}">
+                </div>
+                <div class="form-group">
+                    <label for="table_header_color">Table Header Color:</label>
+                    <input type="text" id="table_header_color" name="table_header_color" value="{{ Mcustomization.table_header_color }}">
+                </div>
+                <div class="form-group">
+                    <label for="table_text_color">Table Text Color:</label>
+                    <input type="text" id="table_text_color" name="table_text_color" value="{{ Mcustomization.table_text_color }}">
+                </div>
+                <div class="form-group">
+                    <label for="table_row_color">Table Row Color:</label>
+                    <input type="text" id="table_row_color" name="table_row_color" value="{{ Mcustomization.table_row_color }}">
+                </div>
+                <button type="submit">Save Customization</button>
+            </form>
+        </div>
+
+
+        <!--PREVIEW SECTION-->
+        <div class="main-preview-section">
+            <div class="home-title">
+                <h1>Inventory</h1>
+            </div>
+
+            <div class="product-list-container">
+                
+                <div class="product-header">
+                    <div class="product-cell">ID</div>
+                    <div class="product-cell">Name</div>
+                    <div class="product-cell">Category</div>
+                    <div class="product-cell">Description</div>
+                    <div class="product-cell">Price</div>
+                    <div class="product-cell">Quantity in Stock</div>
+                    <div class="product-cell">Unit of Measurement</div>
+                    <div class="product-cell">Reorder Level</div>
+                    <div class="product-cell">Supplier</div>
+                    <div class="product-cell action">Action</div>
+                </div>
+    
+                <div class="product-row">
+                    <div class="product-cell">1</div>
+                    <div class="product-cell">Sample Name</div>
+                    <div class="product-cell">Sample Category</div>
+                    <div class="product-cell">Sample Description</div>
+                    <div class="product-cell">₱ 00</div>
+                    <div class="product-cell">00</div>
+                    <div class="product-cell">kg</div>
+                    <div class="product-cell">00</div>
+                    <div class="product-cell">Sample Supplier Inc.</div>
+                    <div class="product-cell action">
+                        <a href="">Update</a> |
+                        <a href="">Delete</a>
+                    </div>
+                </div>
+            
+                <div class="product-row">
+                    <div class="product-cell">2</div>
+                    <div class="product-cell">Sample Name</div>
+                    <div class="product-cell">Sample Category</div>
+                    <div class="product-cell">Sample description</div>
+                    <div class="product-cell">₱ 00</div>
+                    <div class="product-cell">00</div>
+                    <div class="product-cell">kg</div>
+                    <div class="product-cell">00</div>
+                    <div class="product-cell">Sample Supplier Inc.</div>
+                    <div class="product-cell action">
+                        <a href="">Update</a> |
+                        <a href="">Delete</a>
+                    </div>
+                </div>
+
+                <div class="product-row">
+                    <div class="product-cell">3</div>
+                    <div class="product-cell">Sample Name</div>
+                    <div class="product-cell">Sample Category</div>
+                    <div class="product-cell">Sample Description</div>
+                    <div class="product-cell">₱ 00</div>
+                    <div class="product-cell">00</div>
+                    <div class="product-cell">kg</div>
+                    <div class="product-cell">00</div>
+                    <div class="product-cell">Sample Supplier Inc.</div>
+                    <div class="product-cell action">
+                        <a href="">Update</a> |
+                        <a href="">Delete</a>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+
+    </section>
+</body>
+</html>
+{% endblock %}

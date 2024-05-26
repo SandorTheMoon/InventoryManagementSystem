@@ -31,5 +31,6 @@ urlpatterns = [
     path('customization/save_navbar/', views.save_navbar_customization, name='save_navbar_customization'),
     path('customization/login/', views.login_customization, name='login_customization'),
     path('customization/save_login/', views.save_login_customization, name='save_login_customization'),
-    
+    path('customization/mainpage/', views.mainpage_customization, name='mainpage_customization'),
+    path('customization/mainpage/save_mainpage', views.save_mainpage_customization, name='save_mainpage_customization'),
 ] 

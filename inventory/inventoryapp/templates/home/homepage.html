@@ -8,7 +8,37 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="{% static 'css/homepage.css' %}">
-    <title>Welcome!</title>  
+    <title>Welcome!</title>
+
+    <style>
+        body {
+            background-color: {{ Mcustomization.background_color }};
+        }
+
+        .product-list-container {
+            background-color: {{ Mcustomization.box_color }};
+        }
+
+        .home-title h1 {
+            color: {{ Mcustomization.title_text_color }};
+        }
+
+        .product-header {
+            color: {{ Mcustomization.table_header_text_color }}
+        }
+
+        .product-header {
+            background-color: {{ Mcustomization.table_header_color }}
+        }
+
+        .product-row {
+            color: {{ Mcustomization.table_text_color }}
+        }
+
+        .product-row {
+            background-color: {{ Mcustomization.table_row_color }}
+        }
+    </style>
 </head>
 <body>
     <section>

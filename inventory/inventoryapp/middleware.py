@@ -67,7 +67,6 @@ class SpecificUserAccessMiddleware:
                         path.startswith("/logout/")):
                     return redirect("/packaging_list/")
             else:
-                # If the user does not match any specific username
                 restricted_paths = [
                     "/meats_list/", "/baked_list/", "/dairy_list/",
                     "/plants_list/", "/condiments_list/", "/beverages_list/",

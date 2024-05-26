@@ -10,6 +10,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="{% static 'css/homepage.css' %}">
     <title>Customization</title>
+
+    <style>
+        body {
+            background-color: {{ Mcustomization.background_color }};
+        }
+
+        .container {
+            background-color: {{ Mcustomization.box_color }};
+        }
+
+        .container h1 {
+            color: {{ Mcustomization.table_text_color }};
+        }
+    </style>
 </head>
 <body>
     <div class="container">
@@ -21,6 +35,10 @@
         <form action="{% url 'login_customization' %}" method="POST">
             {% csrf_token %}
             <button type="submit">Customize Login Page UI</button>
+        </form>
+        <form action="{% url 'mainpage_customization' %}" method="POST">
+            {% csrf_token %}
+            <button type="submit">Customize Main Page UI</button>
         </form>
     </div>
 </body>

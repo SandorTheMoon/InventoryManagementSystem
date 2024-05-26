@@ -67,8 +67,7 @@ section {
     flex-direction: column;
     width: 90%;
     margin: 0 auto;
-    margin-top: 30px  ;
-    background: rgb(255, 255, 255);
+    margin-top: 30px;
     padding: 30px;
     border-radius: 8px;
     box-shadow: 0px 0px 5px rgba(0, 0, 0, .5);
@@ -113,7 +112,6 @@ section {
 .add-product-form-container {
     width: 30%;
     margin: 0 auto;
-    background: white;
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
@@ -151,6 +149,125 @@ section {
 
 .form-group button:hover {
     background-color: #218838;
+}
+
+
+
+/* --- MY PURCHASE ORDERS --- */
+.purchase-orders-container {
+    width: 60%;
+    margin: 20px auto;
+    padding: 20px;
+    border-radius: 10px;
+    background-color: #f9f9f9;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.purchase-orders-container h1 {
+    margin-bottom: 20px;
+}
+
+.purchase-order {
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+}
+
+.order-details p {
+    margin: 0;
+}
+
+.view-details-button button {
+    background-color: #28a745;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+
+
+
+/* --- MY PURCHASE ORDER DETAILS --- */
+.purchase-order-detail {
+    width: 50%;
+    margin: 40px auto;
+    padding: 30px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    border: 1px solid #e0e0e0;
+}
+
+.purchase-order-detail h1 {
+    margin-top: 0;
+    font-size: 24px;
+    color: black;
+    padding-bottom: 10px;
+}
+
+.purchase-order-detail .top-part {
+    display: flex;
+    justify-content: space-between;
+}
+
+.purchase-order-detail .mid-part {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 3%;
+}
+
+.purchase-order-detail .bot-part-flex-end {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 3%;
+}
+
+.purchase-order-detail .bot-part {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+.detail-item {
+    margin-bottom: 5px;
+}
+
+.detail-item label {
+    font-weight: bold;
+    color: #555;
+    display: inline-block;
+    width: 150px;
+}
+
+.detail-item span {
+    display: inline-block;
+    margin-left: 10px;
+    color: #777;
+    font-size: 16px;
+}
+
+.form-item {
+    display: flex;
+    flex-direction: column;
+    gap: 2%;
+    margin-top: 10%;
+}
+
+.form-item button {
+    background-color: #28a745;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
 }
 
 
@@ -204,10 +321,6 @@ section {
     border-radius: 4px;
     cursor: pointer;
     font-size: 16px;
-}
-
-.update-product-form-container .form-group button:hover {
-    background-color: #218838;
 }
 
 
@@ -347,7 +460,7 @@ section {
 }
 
 
-.preview-section {
+.login-preview-section {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -397,3 +510,107 @@ section {
     cursor: pointer;
     font-size: 16px;
 }
+
+
+
+/* --- MAIN PAGE UI CUSTOMIZATION --- */
+.page-customization-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 5%;
+    gap: 5%;
+}
+
+.page-customization-container {
+    background-color: #fff; 
+    margin-top: 50px;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+    text-align: center;
+    width: 400px;
+    height: 670px;
+}
+
+.page-customization-container h1 {
+    margin-bottom: 20px;
+    color: #000000;
+}
+
+.page-customization-container .form-group {
+    margin-bottom: 15px;
+    text-align: left;
+}
+
+.page-customization-container .form-group label {
+    display: block;
+    margin-bottom: 5px;
+    color: #000000;
+}
+
+.page-customization-container .form-group input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.page-customization-container button {
+    background-color: #007bff;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+
+.main-preview-section {
+    height: 400px;
+}
+
+.main-preview-section .home-title h1 {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.main-preview-section .product-list-container {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    width: 90%;
+    margin: 0 auto;
+    margin-top: 30px;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, .5);
+}
+.main-preview-section .product-header, .product-row {
+    position: relative;
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 1px solid #000000;
+}
+.main-preview-section .product-header {
+    font-weight: bold;
+}
+.main-preview-section .product-row {
+    background-color: #fff;
+}
+.main-preview-section .product-cell {
+    flex: 1;
+    text-align: center;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+.main-preview-section .product-cell.action {
+    flex: 1;
+}
+
