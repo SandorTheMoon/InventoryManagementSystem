@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meats List</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'suppliercss/supplier.css' %}">
+
+    <style>
+        .navigation-bar {
+            background-color: {{ customization.background_color }};
+        }
+
+        .navigation-bar {
+            color: {{ customization.company_text_color }};
+        }
+
+        .navigation-bar h3 {
+            color: {{ customization.button_text_color }}
+        }
+
+        .navigation-bar button {
+            color: {{ customization.button_text_color }};
+        }
+    </style>
+</head>
+<body>
+    <div class="navigation-bar">
+        <h1>{{ customization.company_name }}'s Purchase Order</h1>
+
+        <div class="navigation-bar-buttons">
+            <a href="{% url 'generate_po' %}"><h3>Generate Purchase Order</h3></a>
+            <a href="{% url 'my_generated_po' %}"><h3>My Generated Orders</h3></a>
+
+            <form action="{% url 'logout' %}">
+                <button>Logout</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="purchase-orders-container">
+        <h1>My Purchase Orders</h1>
+        {% if purchase_orders %}
+            {% for purchase_order in purchase_orders %}
+                <div class="purchase-order">
+                    <div class="order-details">
+                        <p>Order Number: {{ purchase_order.order_number }}</p>
+                        <p>Company Name: {{ purchase_order.company_name }}</p>
+                        <p>Supplier Name: {{ purchase_order.supplier_name }}</p>
+                        <p>Total Amount Payable: {{ purchase_order.total_amount_payable }}</p>
+                        <p>Status: {{ purchase_order.get_order_status_display }}</p>
+                    </div>
+                    <div class="view-details-button">
+                        <form action="{% url 'my_generated_po_details' pk=purchase_order.pk %}" method="GET">
+                            <button type="submit">View Details</button>
+                        </form>
+                    </div>
+                </div>
+            {% endfor %}
+        {% else %}
+            <p>No purchase orders found.</p>
+        {% endif %}
+    </div>
+</body>
+</html>

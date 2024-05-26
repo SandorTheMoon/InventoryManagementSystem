@@ -1,0 +1,256 @@
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@700&display=swap");
+
+* {
+    margin: 0;
+    padding: 0;
+    font-family: 'Open Sans', sans-serif;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    overflow: visible;
+}
+
+section {
+    height: 100vh;
+    margin: 0px;
+    box-sizing: border-box;
+    min-height: fit-content;
+}
+
+.navigation-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 60px;
+    width: 100%;
+}
+
+.navigation-bar h1 {
+    display: flex;
+    font-size: 20px;
+    margin-left: 10px;
+    width: 300px;
+}
+
+.navigation-bar a {
+    text-decoration: none;
+    font-size: 15px;
+    margin-left: 25px;
+
+}
+
+.title-heading h2 {
+    margin-top: 40px;
+    text-align: center;
+}
+
+.navigation-bar button {
+    background: none;
+    border: none;
+    font-size: 17px;
+    height: 60px;
+    width: 100px;
+}
+
+.navigation-bar-buttons {
+    display: flex;
+    align-items: center;
+}
+
+
+
+/* --- LIST --- */
+.product-list-container {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    width: 90%;
+    margin: 0 auto;
+    margin-top: 30px;
+    background: rgb(255, 255, 255);
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, .5);
+}
+.product-header, .product-row {
+    position: relative;
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 1px solid #000000;
+}
+.product-header {
+    background-color: #f4f4f4;
+    font-weight: bold;
+}
+.product-row {
+    background-color: #fff;
+}
+.product-cell {
+    flex: 1;
+    text-align: center;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+
+
+/* --- GENERATE PO --- */
+.form-container {
+    width: 35%;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.form-container h1{
+    text-align: center;
+}
+
+.purchase-order-form {
+    background-color: #fff;
+    margin-top: 30px;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    font-weight: bold;
+}
+
+.form-group input,
+.form-group select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.form-group button {
+    background-color: #28a745;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.form-group button:hover {
+    background-color: #218838;
+}
+
+
+
+/* --- MY GENERATED PO --- */
+.purchase-orders-container {
+    width: 60%;
+    margin: 20px auto;
+    padding: 20px;
+    border-radius: 10px;
+    background-color: #f9f9f9;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.purchase-orders-container h1 {
+    margin-bottom: 20px;
+}
+
+.purchase-order {
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+}
+
+.order-details p {
+    margin: 0;
+}
+
+.view-details-button button {
+    background-color: #28a745;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+
+
+
+/* --- MY GENERATED PO DETAILS --- */
+.purchase-order-detail {
+    width: 60%;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+}
+
+.purchase-order-detail h1 {
+    margin-top: 0;
+}
+
+.detail-item {
+    margin-bottom: 10px;
+}
+
+.detail-item label {
+    font-weight: bold;
+}
+
+.detail-item span {
+    display: inline-block;
+    margin-left: 10px;
+}
+
+.detail-item input[type="text"],
+.detail-item select {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    margin-top: 5px;
+}
+
+.detail-item textarea {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    margin-top: 5px;
+}
+
+.detail-item button {
+    background-color: #28a745;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.detail-item button:hover {
+    background-color: #218838;
+}

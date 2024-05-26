@@ -28,7 +28,7 @@
 <body>
     <section>
         <div class="navigation-bar">
-            <h1>{{ customization.company_name }}'s Meats Supplier</h1>
+            <h1>{{ customization.company_name }}'s Beverages Supplier</h1>
 
             <div class="navigation-bar-buttons">
                 <a href="{% url 'generate_po' %}"><h3>Generate Purchase Order</h3></a>
@@ -41,7 +41,7 @@
         </div>
 
         <div class="title-heading">
-            <h2>{{ customization.company_name }}'s Current Meats Inventory Status</h2>
+            <h2>{{ customization.company_name }}'s Beverages Inventory Status</h2>
         </div>
 
         <div class="product-list-container">
@@ -57,17 +57,17 @@
                 <div class="product-cell">Supplier</div>
             </div>
 
-            {% for meat in meats %}
+            {% for b in beverages %}
             <div class="product-row">
-                <div class="product-cell">{{ meat.0 }}</div>
-                <div class="product-cell">{{ meat.1 }}</div>
-                <div class="product-cell">{{ meat.2 }}</div>
-                <div class="product-cell">{{ meat.3 }}</div>
-                <div class="product-cell">₱ {{ meat.4 }}</div>
-                <div class="product-cell">{{ meat.5 }}</div>
-                <div class="product-cell">{{ meat.6 }}</div>
-                <div class="product-cell">{{ meat.7 }}</div>
-                <div class="product-cell">{{ meat.8 }}</div>
+                <div class="product-cell">{{ b.0 }}</div>
+                <div class="product-cell">{{ b.1 }}</div>
+                <div class="product-cell">{{ b.2 }}</div>
+                <div class="product-cell">{{ b.3 }}</div>
+                <div class="product-cell">₱ {{ b.4 }}</div>
+                <div class="product-cell">{{ b.5 }}</div>
+                <div class="product-cell">{{ b.6 }}</div>
+                <div class="product-cell">{{ b.7 }}</div>
+                <div class="product-cell">{{ b.8 }}</div>
             </div>
             {% endfor %}
         </div>

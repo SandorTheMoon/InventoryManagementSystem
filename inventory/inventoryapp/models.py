@@ -106,6 +106,42 @@ class Packaging(models.Model):
     def __str__(self):
         return self.name
 
+class PurchaseOrder(models.Model):
+    order_number = models.CharField(max_length=20, unique=True)
+    company_name = models.CharField(max_length=100)
+    company_address = models.CharField(max_length=255)
+    supplier_name = models.CharField(max_length=100)
+    supplier_address = models.CharField(max_length=255)
+    order_status = models.CharField(
+        max_length=20,
+        choices=[
+            ('PLACE_ORDER', 'Place Order'),
+            ('TO_PROCESS', 'To Process'),
+            ('TO_SHIP', 'To Ship'),
+            ('TO_DELIVER', 'To Deliver'),
+            ('DELIVERED', 'Delivered'),
+            ('CANCEL_ORDER', 'Cancel Order'),
+        ],
+        null=True, blank=True
+    )
+    date_issued = models.DateField(auto_now_add=True)
+    total_amount_payable = models.DecimalField(max_digits=10, decimal_places=2, default=0)
+    created_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name='purchase_orders')
+    name = models.CharField(max_length=100, null=True, blank=True)
+    category = models.CharField(max_length=50, null=True)
+    description = models.TextField(null=True, blank=True)
+    quantity = models.IntegerField(null=True, blank=True)
+    unit_of_measurement = models.CharField(max_length=20, null=True, blank=True)
+    unit_price = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
+    subtotal = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
+
+    def save(self, *args, **kwargs):
+        self.subtotal = self.quantity * self.unit_price
+        super().save(*args, **kwargs)
+
+    def __str__(self):
+        return self.order_number
+
 
 # === MODELS FOR UI CUSTOMIZATIONS ===
 class NavBarCustomization(models.Model):

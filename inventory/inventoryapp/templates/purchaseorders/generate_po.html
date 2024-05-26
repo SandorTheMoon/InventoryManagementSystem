@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meats List</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'suppliercss/supplier.css' %}">
+
+    <style>
+        .navigation-bar {
+            background-color: {{ customization.background_color }};
+        }
+
+        .navigation-bar {
+            color: {{ customization.company_text_color }};
+        }
+
+        .navigation-bar h3 {
+            color: {{ customization.button_text_color }}
+        }
+
+        .navigation-bar button {
+            color: {{ customization.button_text_color }};
+        }
+    </style>
+</head>
+<body>
+
+    <div class="navigation-bar">
+        <h1>Generate {{ customization.company_name }}'s Purchase Order</h1>
+
+        <div class="navigation-bar-buttons">
+            <a href="{% url 'generate_po' %}"><h3>Generate Purchase Order</h3></a>
+            <a href="{% url 'my_generated_po' %}"><h3>My Generated Orders</h3></a>
+
+            <form action="{% url 'logout' %}">
+                <button>Logout</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="form-container">
+        <h1>Create Purchase Order</h1>
+        <form action="{% url 'generate_po' %}" method="POST" class="purchase-order-form">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="id_company_name">Company Name:</label>
+                {{ form.company_name }}
+            </div>
+            <div class="form-group">
+                <label for="id_company_address">Company Address:</label>
+                {{ form.company_address }}
+            </div>
+            <div class="form-group">
+                <label for="id_supplier_name">Supplier Name:</label>
+                {{ form.supplier_name }}
+            </div>
+            <div class="form-group">
+                <label for="id_supplier_address">Supplier Address:</label>
+                {{ form.supplier_address }}
+            </div>
+            <div class="form-group">
+                <label for="id_name">Product Name:</label>
+                {{ form.name }}
+            </div>
+            <div class="form-group">
+                <label for="id_description">Description:</label>
+                {{ form.description }}
+            </div>
+            <div class="form-group">
+                <label for="id_quantity">Quantity:</label>
+                {{ form.quantity }}
+            </div>
+            <div class="form-group">
+                <label for="id_unit_of_measurement">Unit of Measurement:</label>
+                {{ form.unit_of_measurement }}
+            </div>
+            <div class="form-group">
+                <label for="id_unit_price">Unit Price:</label>
+                {{ form.unit_price }}
+            </div>
+            <div class="form-group">
+                <button type="submit">Save Purchase Order</button>
+            </div>
+        </form>
+    </div>
+
+</body>
+</html>

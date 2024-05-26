@@ -4,13 +4,17 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.http import HttpResponse
 
-from .forms import AddProductForm
-from .models import Meats, Baked, Dairy, Plants, Condiments, Beverages, Dry, Packaging, NavBarCustomization, LoginCustomization
+import random
+import string
+from django.utils import timezone
+
+from .forms import AddProductForm, PurchaseOrderForm, PurchaseOrderStatusForm
+from .models import Meats, Baked, Dairy, Plants, Condiments, Beverages, Dry, Packaging, NavBarCustomization, LoginCustomization, PurchaseOrder
 
 
 def login_page(request):
     if request.user.is_authenticated:
-        logout(request)
+        logout(user.request)
         return redirect('login')
     
     else:
@@ -237,8 +241,126 @@ def delete_product(request, category, product_id):
     return redirect('home')
 
 
+@login_required(login_url="/login/")
+def my_po(request):
+    purchase_orders = PurchaseOrder.objects.all()
+
+    customization = NavBarCustomization.objects.first()
+    if customization is None:
+        customization = NavBarCustomization.objects.create()
+
+    return render(request, "home/my_po.html", {'purchase_orders': purchase_orders, 'customization': customization})
+
+
+@login_required(login_url="/login/")
+def my_po_details(request, pk):
+    purchase_order = get_object_or_404(PurchaseOrder, pk=pk)
+    if request.method == 'POST':
+        form = PurchaseOrderStatusForm(request.POST, instance=purchase_order)
+        if form.is_valid():
+            form.save()
+            return redirect('my_po')
+    else:
+        form = PurchaseOrderStatusForm(instance=purchase_order)
+
+    customization = NavBarCustomization.objects.first()
+    if customization is None:
+        customization = NavBarCustomization.objects.create()
+    
+    return render(request, 'home/my_po_details.html', {'purchase_order': purchase_order, 'form': form, 'customization': customization})
+
+
 # === FOR SUPPLIERS ===
 from django.db import connections
+
+def generate_order_number():
+    timestamp = timezone.now().strftime('%Y%m%d%H%M%S')
+    random_string = ''.join(random.choices(string.ascii_uppercase + string.digits, k=6))
+    order_number = f'{timestamp}-{random_string}'
+    return order_number
+
+@login_required(login_url="/login/")
+def generate_po(request):
+    if request.method == "POST":
+        form = PurchaseOrderForm(request.POST)
+        if form.is_valid():
+            purchase_order = form.save(commit=False)
+            purchase_order.created_by = request.user
+            get_username = request.user.username
+
+            if get_username == 'meat':
+                purchase_order.category = "Meats"
+
+            elif get_username == 'baked':
+                purchase_order.category = "Bread & Baked Goods"
+
+            elif get_username == 'dairy':
+                purchase_order.category = "Dairy Products"
+
+            elif get_username == 'plants':
+                purchase_order.category = "Vegetable & Fruits"
+
+            elif get_username == 'condiments':
+                purchase_order.category = "Condiments & Sauces"
+
+            elif get_username == 'beverages':
+                purchase_order.category = "Beverages"
+
+            elif get_username == 'dry':
+                purchase_order.category = "Dry Goods & Staples"
+
+            elif get_username == 'packaging':
+                purchase_order.category = "Plastic/Paper & Packaging"
+
+            else:
+                purchase_order.category = "Unknown"
+
+            purchase_order.order_number = generate_order_number()  # Generate unique order number
+
+            purchase_order.total_amount_payable = purchase_order.quantity * purchase_order.unit_price
+            purchase_order.save()
+            messages.success(request, "Purchase order created successfully!")
+            return redirect('home')
+        else:
+            messages.error(request, "Failed to create purchase order. Please check the form.")
+    else:
+        form = PurchaseOrderForm()
+
+    customization = NavBarCustomization.objects.first()
+    if customization is None:
+        customization = NavBarCustomization.objects.create()
+    
+    return render(request, "purchaseorders/generate_po.html", {'form': form, 'customization': customization})
+
+
+@login_required(login_url="/login/")
+def my_generated_po(request):
+    purchase_orders = PurchaseOrder.objects.filter(created_by=request.user)
+
+    customization = NavBarCustomization.objects.first()
+    if customization is None:
+        customization = NavBarCustomization.objects.create()
+
+    return render(request, "purchaseorders/my_generated_po.html", {'purchase_orders': purchase_orders, 'customization': customization})
+
+
+@login_required(login_url="/login/")
+def my_generated_po_details(request, pk):
+    purchase_order = get_object_or_404(PurchaseOrder, pk=pk)
+    if request.method == 'POST':
+        form = PurchaseOrderStatusForm(request.POST, instance=purchase_order)
+        if form.is_valid():
+            form.save()
+            return redirect('my_generated_po')
+    else:
+        form = PurchaseOrderStatusForm(instance=purchase_order)
+
+    customization = NavBarCustomization.objects.first()
+    if customization is None:
+        customization = NavBarCustomization.objects.create()
+    
+    return render(request, 'purchaseorders/my_generated_po_details.html', {'purchase_order': purchase_order, 'form': form, 'customization': customization})
+
 
 @login_required(login_url="/login/")
 def meats_list(request):
@@ -249,7 +371,131 @@ def meats_list(request):
             FROM inventoryapp_meats;
         """)
         meats = cursor.fetchall()
-    return render(request, 'suppliers/meats_list.html', {'meats': meats})
+    
+    customization = NavBarCustomization.objects.first()
+    if customization is None:
+        customization = NavBarCustomization.objects.create()
+
+    return render(request, 'suppliers/meats_list.html', {'meats': meats, 'customization': customization})
+
+
+@login_required(login_url="/login/")
+def baked_list(request):
+    with connections['baked_db'].cursor() as cursor:
+        cursor.execute("""
+            SELECT id, name, category, description, price, quantity_in_stock,
+                   unit_of_measurement, reorder_level, supplier 
+            FROM inventoryapp_baked;
+        """)
+        baked = cursor.fetchall()
+    
+    customization = NavBarCustomization.objects.first()
+    if customization is None:
+        customization = NavBarCustomization.objects.create()
+
+    return render(request, 'suppliers/baked_list.html', {'baked': baked, 'customization': customization})
+
+
+@login_required(login_url="/login/")
+def dairy_list(request):
+    with connections['dairy_db'].cursor() as cursor:
+        cursor.execute("""
+            SELECT id, name, category, description, price, quantity_in_stock,
+                   unit_of_measurement, reorder_level, supplier 
+            FROM inventoryapp_dairy;
+        """)
+        dairy = cursor.fetchall()
+    
+    customization = NavBarCustomization.objects.first()
+    if customization is None:
+        customization = NavBarCustomization.objects.create()
+
+    return render(request, 'suppliers/dairy_list.html', {'dairy': dairy, 'customization': customization})
+
+
+@login_required(login_url="/login/")
+def plants_list(request):
+    with connections['plants_db'].cursor() as cursor:
+        cursor.execute("""
+            SELECT id, name, category, description, price, quantity_in_stock,
+                   unit_of_measurement, reorder_level, supplier 
+            FROM inventoryapp_plants;
+        """)
+        plants = cursor.fetchall()
+    
+    customization = NavBarCustomization.objects.first()
+    if customization is None:
+        customization = NavBarCustomization.objects.create()
+
+    return render(request, 'suppliers/plants_list.html', {'plants': plants, 'customization': customization})
+
+
+@login_required(login_url="/login/")
+def condiments_list(request):
+    with connections['condiments_db'].cursor() as cursor:
+        cursor.execute("""
+            SELECT id, name, category, description, price, quantity_in_stock,
+                   unit_of_measurement, reorder_level, supplier 
+            FROM inventoryapp_condiments;
+        """)
+        condiments = cursor.fetchall()
+    
+    customization = NavBarCustomization.objects.first()
+    if customization is None:
+        customization = NavBarCustomization.objects.create()
+
+    return render(request, 'suppliers/condiments_list.html', {'condiments': condiments, 'customization': customization})
+
+
+@login_required(login_url="/login/")
+def beverages_list(request):
+    with connections['beverages_db'].cursor() as cursor:
+        cursor.execute("""
+            SELECT id, name, category, description, price, quantity_in_stock,
+                   unit_of_measurement, reorder_level, supplier 
+            FROM inventoryapp_beverages;
+        """)
+        beverages = cursor.fetchall()
+    
+    customization = NavBarCustomization.objects.first()
+    if customization is None:
+        customization = NavBarCustomization.objects.create()
+
+    return render(request, 'suppliers/beverages_list.html', {'beverages': beverages, 'customization': customization})
+
+
+@login_required(login_url="/login/")
+def dry_list(request):
+    with connections['dry_db'].cursor() as cursor:
+        cursor.execute("""
+            SELECT id, name, category, description, price, quantity_in_stock,
+                   unit_of_measurement, reorder_level, supplier 
+            FROM inventoryapp_dry;
+        """)
+        dry = cursor.fetchall()
+    
+    customization = NavBarCustomization.objects.first()
+    if customization is None:
+        customization = NavBarCustomization.objects.create()
+
+    return render(request, 'suppliers/dry_list.html', {'dry': dry, 'customization': customization})
+
+
+@login_required(login_url="/login/")
+def packaging_list(request):
+    with connections['packaging_db'].cursor() as cursor:
+        cursor.execute("""
+            SELECT id, name, category, description, price, quantity_in_stock,
+                   unit_of_measurement, reorder_level, supplier 
+            FROM inventoryapp_packaging;
+        """)
+        packaging = cursor.fetchall()
+    
+    customization = NavBarCustomization.objects.first()
+    if customization is None:
+        customization = NavBarCustomization.objects.create()
+
+    return render(request, 'suppliers/packaging_list.html', {'packaging': packaging, 'customization': customization})
 
 
 # === FOR CUSTOMIZING UI ===

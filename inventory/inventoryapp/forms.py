@@ -1,4 +1,5 @@
 from django import forms
+from .models import PurchaseOrder
 
 
 class AddProductForm(forms.Form):
@@ -21,3 +22,13 @@ class AddProductForm(forms.Form):
     unit_of_measurement = forms.CharField(max_length=50)
     reorder_level = forms.IntegerField()
     supplier = forms.CharField(max_length=255)
+
+class PurchaseOrderForm(forms.ModelForm):
+    class Meta:
+        model = PurchaseOrder
+        fields = ['company_name', 'company_address', 'supplier_name', 'supplier_address', 'order_status', 'name', 'description', 'quantity', 'unit_of_measurement', 'unit_price']
+
+class PurchaseOrderStatusForm(forms.ModelForm):
+    class Meta:
+        model = PurchaseOrder
+        fields = ['order_status']
