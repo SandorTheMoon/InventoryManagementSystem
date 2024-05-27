@@ -252,7 +252,7 @@ def delete_product(request, category, product_id):
 
 @login_required(login_url="/login/")
 def my_po(request):
-    purchase_orders = PurchaseOrder.objects.all()
+    purchase_orders = PurchaseOrder.objects.all().order_by('-date_issued')
 
     customization = NavBarCustomization.objects.first()
     if customization is None:
@@ -344,7 +344,7 @@ def generate_po(request):
 
 @login_required(login_url="/login/")
 def my_generated_po(request):
-    purchase_orders = PurchaseOrder.objects.filter(created_by=request.user)
+    purchase_orders = PurchaseOrder.objects.filter(created_by=request.user).order_by('-date_issued')
 
     customization = NavBarCustomization.objects.first()
     if customization is None:

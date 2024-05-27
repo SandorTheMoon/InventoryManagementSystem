@@ -197,51 +197,71 @@ section {
 
 /* --- MY GENERATED PO DETAILS --- */
 .purchase-order-detail {
-    width: 60%;
-    margin: 0 auto;
-    padding: 20px;
-    background-color: #f9f9f9;
-    border-radius: 8px;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+    width: 50%;
+    margin: 40px auto;
+    padding: 30px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    border: 1px solid #e0e0e0;
 }
 
 .purchase-order-detail h1 {
     margin-top: 0;
+    font-size: 24px;
+    color: black;
+    padding-bottom: 10px;
+}
+
+.purchase-order-detail .top-part {
+    display: flex;
+    justify-content: space-between;
+}
+
+.purchase-order-detail .mid-part {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 3%;
+}
+
+.purchase-order-detail .bot-part-flex-end {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 3%;
+}
+
+.purchase-order-detail .bot-part {
+    position: relative;
+    display: flex;
+    flex-direction: column;
 }
 
 .detail-item {
-    margin-bottom: 10px;
+    margin-bottom: 5px;
 }
 
 .detail-item label {
     font-weight: bold;
+    color: #555;
+    display: inline-block;
+    width: 150px;
 }
 
 .detail-item span {
     display: inline-block;
     margin-left: 10px;
+    color: #777;
+    font-size: 16px;
 }
 
-.detail-item input[type="text"],
-.detail-item select {
-    width: 100%;
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-sizing: border-box;
-    margin-top: 5px;
+.form-item {
+    display: flex;
+    flex-direction: column;
+    gap: 2%;
+    margin-top: 10%;
 }
 
-.detail-item textarea {
-    width: 100%;
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-sizing: border-box;
-    margin-top: 5px;
-}
-
-.detail-item button {
+.form-item button {
     background-color: #28a745;
     color: white;
     padding: 10px 20px;
@@ -249,8 +269,5 @@ section {
     border-radius: 4px;
     cursor: pointer;
     font-size: 16px;
-}
-
-.detail-item button:hover {
-    background-color: #218838;
+    transition: background-color 0.3s ease;
 }
