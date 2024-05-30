@@ -1,5 +1,5 @@
 from django import forms
-from .models import PurchaseOrder
+from .models import PurchaseOrder, CompanyLogo
 
 
 class AddProductForm(forms.Form):
@@ -32,3 +32,8 @@ class PurchaseOrderStatusForm(forms.ModelForm):
     class Meta:
         model = PurchaseOrder
         fields = ['order_status']
+
+class LogoForm(forms.ModelForm):
+    class Meta:
+        model = CompanyLogo
+        fields = ['logo']

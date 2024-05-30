@@ -1,5 +1,7 @@
 from django.urls import path
 from . import views
+from django.conf.urls.static import static
+from django.conf import settings
 
 urlpatterns = [
     path("", views.home_page, name="home"),
@@ -33,4 +35,5 @@ urlpatterns = [
     path('customization/save_login/', views.save_login_customization, name='save_login_customization'),
     path('customization/mainpage/', views.mainpage_customization, name='mainpage_customization'),
     path('customization/mainpage/save_mainpage', views.save_mainpage_customization, name='save_mainpage_customization'),
-] 
+    path('customization/logo', views.logo_customization, name="logo_customization"),
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

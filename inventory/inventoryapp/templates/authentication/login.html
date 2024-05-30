@@ -32,6 +32,12 @@
 <body>
     <section class="login-section">
         <div class="login-container">
+            {% if CLcustomization.logo %}
+                <img src="{{ CLcustomization.logo.url }}" class="nav-logo" height="100px" width="100px" alt="Logo">
+            {% else %}
+                <p>No Image</p>
+            {% endif %}
+
             <h1>Login Page</h1>
             <form action="" method="POST">
                 {% csrf_token %}

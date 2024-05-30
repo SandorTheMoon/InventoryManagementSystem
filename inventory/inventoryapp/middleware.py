@@ -10,6 +10,9 @@ class SpecificUserAccessMiddleware:
             username = request.user.username
             path = request.path
 
+            if path.startswith('/media/'):
+                return self.get_response(request)
+
             if username == 'meat':
                 if not (path.startswith("/meats_list/") or
                         path.startswith("/generate_po/") or

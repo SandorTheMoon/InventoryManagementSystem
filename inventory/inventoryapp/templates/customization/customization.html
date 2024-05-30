@@ -40,6 +40,10 @@
             {% csrf_token %}
             <button type="submit">Customize Main Page UI</button>
         </form>
+        <form action="{% url 'logo_customization' %}" method="POST">
+            {% csrf_token %}
+            <button type="submit">Customize Company Logo</button>
+        </form>
     </div>
 </body>
 </html>

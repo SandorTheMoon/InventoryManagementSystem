@@ -174,3 +174,9 @@ class MainPageCustomization(models.Model):
 
     def __str__(self):
         return 'Main Page Customization'
+    
+class CompanyLogo(models.Model):
+    logo = models.ImageField(upload_to="logo/", null=True, blank=True)
+
+    def __str__(self):
+        return 'Image Logo'

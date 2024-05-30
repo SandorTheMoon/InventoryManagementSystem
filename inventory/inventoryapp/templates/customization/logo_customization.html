@@ -1,0 +1,45 @@
+{% extends 'header/navbar.html' %}
+{% block navigation_bar %}
+    {{ block.super }}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/homepage.css' %}">
+    <title>Login Customization</title>
+
+    <style>
+    </style>
+</head>
+<body>
+    <section class="logo-customization-section">
+
+        <div class="logo-customization-container">
+            <h1>Company Logo Customization</h1>
+            <form action="{% url 'logo_customization' %}" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="form-group">
+                    {{ form.logo }}
+                </div>
+
+
+                <button type="submit">Save Customization</button>
+                
+                <div class="preview-container">
+                    <label>Logo:</label>
+                    {% if CLcustomization.logo %}
+                        <img src="{{ CLcustomization.logo.url }}" class="nav-logo" height="150px" width="150px" alt="Logo">
+                    {% else %}
+                        <p>No Image</p>
+                    {% endif %}
+                </div>
+            </form>
+        </div>
+
+    </section>
+</body>
+</html>
+{% endblock %}

@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="{% static 'css/homepage.css' %}">
+    
 
     <style>
         .header-container {
@@ -12,15 +13,21 @@
             color: {{ customization.company_text_color }};
         }
 
-        .header-container h3{
+        .header-container h3, button{
             color: {{ customization.button_text_color }};
         }
+        
     </style>
 </head>
 <body> 
     {% block navigation_bar %}
 
     <div class="header-container">
+        {% if CLcustomization.logo %}
+            <img src="{{ CLcustomization.logo.url }}" class="nav-logo" height="50px" width="50px" alt="Logo">
+        {% else %}
+            <p>No Image</p>
+        {% endif %}
         <h1>{{ customization.company_name }}'s IMS</h1>
         
         <div class="header-container-buttons">

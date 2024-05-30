@@ -4,7 +4,7 @@
     {% load static %}
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Meats List</title>
+    <title>Packaging List</title>
     <link rel="stylesheet" type="text/css" href="{% static 'suppliercss/supplier.css' %}">
 
     <style>
@@ -28,9 +28,15 @@
 <body>
     <section>
         <div class="navigation-bar">
+            {% if CLcustomization.logo %}
+                <img src="{{ CLcustomization.logo.url }}" class="nav-logo" height="50px" width="50px" alt="Logo">
+            {% else %}
+                <p>No Image</p>
+            {% endif %}
             <h1>{{ customization.company_name }}'s Plactic/Paper & Packaging Supplier</h1>
 
             <div class="navigation-bar-buttons">
+                <a href="{% url 'packaging_list' %}"><h3>Home</h3></a>
                 <a href="{% url 'generate_po' %}"><h3>Generate Purchase Order</h3></a>
                 <a href="{% url 'my_generated_po' %}"><h3>My Generated Orders</h3></a>
 

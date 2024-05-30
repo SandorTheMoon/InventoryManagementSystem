@@ -8,8 +8,8 @@ import random
 import string
 from django.utils import timezone
 
-from .forms import AddProductForm, PurchaseOrderForm, PurchaseOrderStatusForm
-from .models import Meats, Baked, Dairy, Plants, Condiments, Beverages, Dry, Packaging, NavBarCustomization, LoginCustomization, MainPageCustomization, PurchaseOrder
+from .forms import AddProductForm, PurchaseOrderForm, PurchaseOrderStatusForm, LogoForm
+from .models import Meats, Baked, Dairy, Plants, Condiments, Beverages, Dry, Packaging, NavBarCustomization, LoginCustomization, MainPageCustomization, CompanyLogo, PurchaseOrder
 
 
 def login_page(request):
@@ -30,11 +30,16 @@ def login_page(request):
             else:
                 messages.error(request, "Invalid login credentials!")
 
+        CLcustomization, created = CompanyLogo.objects.get_or_create()
+
+        if CLcustomization is None:
+            CLcustomization = CompanyLogo.objects.create()
+
         customization = LoginCustomization.objects.first()
         if customization is None:
             customization = LoginCustomization.objects.create()
 
-        return render(request, "authentication/login.html", {'customization': customization})
+        return render(request, "authentication/login.html", {'CLcustomization': CLcustomization, 'customization': customization})
 
 
 @login_required(login_url="/login/")
@@ -54,6 +59,11 @@ def home_page(request):
     dry_products = Dry.objects.all()
     packaging_products = Packaging.objects.all()
     
+    CLcustomization = CompanyLogo.objects.first()
+
+    if CLcustomization is None:
+        CLcustomization = CompanyLogo.objects.create()
+
     customization = NavBarCustomization.objects.first()
     if customization is None:
         customization = NavBarCustomization.objects.create()
@@ -72,6 +82,7 @@ def home_page(request):
         'dry_products': dry_products,
         'packaging_products': packaging_products,
 
+        'CLcustomization': CLcustomization, 
         'customization': customization,
         'Mcustomization': Mcustomization
     })
@@ -125,6 +136,11 @@ def addproduct_page(request):
     else:
         form = AddProductForm()
     
+    CLcustomization = CompanyLogo.objects.first()
+
+    if CLcustomization is None:
+        CLcustomization = CompanyLogo.objects.create()
+
     customization = NavBarCustomization.objects.first()
     if customization is None:
         customization = NavBarCustomization.objects.create()
@@ -133,7 +149,7 @@ def addproduct_page(request):
     if Mcustomization is None:
         Mcustomization = MainPageCustomization.objects.create()
     
-    return render(request, "home/addproduct.html", {'form': form, 'customization': customization, 'Mcustomization': Mcustomization})
+    return render(request, "home/addproduct.html", {'CLcustomization': CLcustomization, 'form': form, 'customization': customization, 'Mcustomization': Mcustomization})
 
 
 @login_required(login_url="/login/")
@@ -196,11 +212,16 @@ def update_product(request, category, product_id):
             'supplier': product.supplier
         })
 
+    CLcustomization = CompanyLogo.objects.first()
+
+    if CLcustomization is None:
+        CLcustomization = CompanyLogo.objects.create()
+
     customization = NavBarCustomization.objects.first()
     if customization is None:
         customization = NavBarCustomization.objects.create()
 
-    return render(request, "home/update_product.html", {'form': form, 'customization': customization})
+    return render(request, "home/update_product.html", {'CLcustomization': CLcustomization, 'form': form, 'customization': customization})
 
 
 @login_required(login_url="/login/")
@@ -254,11 +275,16 @@ def delete_product(request, category, product_id):
 def my_po(request):
     purchase_orders = PurchaseOrder.objects.all().order_by('-date_issued')
 
+    CLcustomization = CompanyLogo.objects.first()
+
+    if CLcustomization is None:
+        CLcustomization = CompanyLogo.objects.create()
+
     customization = NavBarCustomization.objects.first()
     if customization is None:
         customization = NavBarCustomization.objects.create()
 
-    return render(request, "home/my_po.html", {'purchase_orders': purchase_orders, 'customization': customization})
+    return render(request, "home/my_po.html", {'CLcustomization': CLcustomization, 'purchase_orders': purchase_orders, 'customization': customization})
 
 
 @login_required(login_url="/login/")
@@ -272,11 +298,16 @@ def my_po_details(request, pk):
     else:
         form = PurchaseOrderStatusForm(instance=purchase_order)
 
+    CLcustomization = CompanyLogo.objects.first()
+
+    if CLcustomization is None:
+        CLcustomization = CompanyLogo.objects.create()
+
     customization = NavBarCustomization.objects.first()
     if customization is None:
         customization = NavBarCustomization.objects.create()
     
-    return render(request, 'home/my_po_details.html', {'purchase_order': purchase_order, 'form': form, 'customization': customization})
+    return render(request, 'home/my_po_details.html', {'CLcustomization': CLcustomization, 'purchase_order': purchase_order, 'form': form, 'customization': customization})
 
 
 # === FOR SUPPLIERS ===
@@ -335,22 +366,32 @@ def generate_po(request):
     else:
         form = PurchaseOrderForm()
 
+    CLcustomization = CompanyLogo.objects.first()
+
+    if CLcustomization is None:
+        CLcustomization = CompanyLogo.objects.create()
+
     customization = NavBarCustomization.objects.first()
     if customization is None:
         customization = NavBarCustomization.objects.create()
     
-    return render(request, "purchaseorders/generate_po.html", {'form': form, 'customization': customization})
+    return render(request, "purchaseorders/generate_po.html", {'CLcustomization': CLcustomization, 'form': form, 'customization': customization})
 
 
 @login_required(login_url="/login/")
 def my_generated_po(request):
-    purchase_orders = PurchaseOrder.objects.filter(created_by=request.user).order_by('-date_issued')
+    purchase_orders = PurchaseOrder.objects.filter(created_by=request.user).order_by('-date_issued') 
+
+    CLcustomization = CompanyLogo.objects.first()
+
+    if CLcustomization is None:
+        CLcustomization = CompanyLogo.objects.create()
 
     customization = NavBarCustomization.objects.first()
     if customization is None:
         customization = NavBarCustomization.objects.create()
 
-    return render(request, "purchaseorders/my_generated_po.html", {'purchase_orders': purchase_orders, 'customization': customization})
+    return render(request, "purchaseorders/my_generated_po.html", {'CLcustomization': CLcustomization, 'purchase_orders': purchase_orders, 'customization': customization})
 
 
 @login_required(login_url="/login/")
@@ -364,11 +405,16 @@ def my_generated_po_details(request, pk):
     else:
         form = PurchaseOrderStatusForm(instance=purchase_order)
 
+    CLcustomization = CompanyLogo.objects.first()
+
+    if CLcustomization is None:
+        CLcustomization = CompanyLogo.objects.create()
+
     customization = NavBarCustomization.objects.first()
     if customization is None:
         customization = NavBarCustomization.objects.create()
     
-    return render(request, 'purchaseorders/my_generated_po_details.html', {'purchase_order': purchase_order, 'form': form, 'customization': customization})
+    return render(request, 'purchaseorders/my_generated_po_details.html', {'CLcustomization': CLcustomization, 'purchase_order': purchase_order, 'form': form, 'customization': customization})
 
 
 @login_required(login_url="/login/")
@@ -381,11 +427,16 @@ def meats_list(request):
         """)
         meats = cursor.fetchall()
     
+    CLcustomization = CompanyLogo.objects.first()
+
+    if CLcustomization is None:
+        CLcustomization = CompanyLogo.objects.create()
+
     customization = NavBarCustomization.objects.first()
     if customization is None:
         customization = NavBarCustomization.objects.create()
 
-    return render(request, 'suppliers/meats_list.html', {'meats': meats, 'customization': customization})
+    return render(request, 'suppliers/meats_list.html', {'CLcustomization': CLcustomization, 'meats': meats, 'customization': customization})
 
 
 @login_required(login_url="/login/")
@@ -398,11 +449,16 @@ def baked_list(request):
         """)
         baked = cursor.fetchall()
     
+    CLcustomization = CompanyLogo.objects.first()
+
+    if CLcustomization is None:
+        CLcustomization = CompanyLogo.objects.create()
+
     customization = NavBarCustomization.objects.first()
     if customization is None:
         customization = NavBarCustomization.objects.create()
 
-    return render(request, 'suppliers/baked_list.html', {'baked': baked, 'customization': customization})
+    return render(request, 'suppliers/baked_list.html', {'CLcustomization': CLcustomization, 'baked': baked, 'customization': customization})
 
 
 @login_required(login_url="/login/")
@@ -415,11 +471,16 @@ def dairy_list(request):
         """)
         dairy = cursor.fetchall()
     
+    CLcustomization = CompanyLogo.objects.first()
+
+    if CLcustomization is None:
+        CLcustomization = CompanyLogo.objects.create()
+
     customization = NavBarCustomization.objects.first()
     if customization is None:
         customization = NavBarCustomization.objects.create()
 
-    return render(request, 'suppliers/dairy_list.html', {'dairy': dairy, 'customization': customization})
+    return render(request, 'suppliers/dairy_list.html', {'CLcustomization': CLcustomization, 'dairy': dairy, 'customization': customization})
 
 
 @login_required(login_url="/login/")
@@ -432,11 +493,16 @@ def plants_list(request):
         """)
         plants = cursor.fetchall()
     
+    CLcustomization = CompanyLogo.objects.first()
+
+    if CLcustomization is None:
+        CLcustomization = CompanyLogo.objects.create()
+
     customization = NavBarCustomization.objects.first()
     if customization is None:
         customization = NavBarCustomization.objects.create()
 
-    return render(request, 'suppliers/plants_list.html', {'plants': plants, 'customization': customization})
+    return render(request, 'suppliers/plants_list.html', {'CLcustomization': CLcustomization, 'plants': plants, 'customization': customization})
 
 
 @login_required(login_url="/login/")
@@ -449,11 +515,16 @@ def condiments_list(request):
         """)
         condiments = cursor.fetchall()
     
+    CLcustomization = CompanyLogo.objects.first()
+
+    if CLcustomization is None:
+        CLcustomization = CompanyLogo.objects.create()
+
     customization = NavBarCustomization.objects.first()
     if customization is None:
         customization = NavBarCustomization.objects.create()
 
-    return render(request, 'suppliers/condiments_list.html', {'condiments': condiments, 'customization': customization})
+    return render(request, 'suppliers/condiments_list.html', {'CLcustomization': CLcustomization, 'condiments': condiments, 'customization': customization})
 
 
 @login_required(login_url="/login/")
@@ -466,11 +537,16 @@ def beverages_list(request):
         """)
         beverages = cursor.fetchall()
     
+    CLcustomization = CompanyLogo.objects.first()
+
+    if CLcustomization is None:
+        CLcustomization = CompanyLogo.objects.create()
+
     customization = NavBarCustomization.objects.first()
     if customization is None:
         customization = NavBarCustomization.objects.create()
 
-    return render(request, 'suppliers/beverages_list.html', {'beverages': beverages, 'customization': customization})
+    return render(request, 'suppliers/beverages_list.html', {'CLcustomization': CLcustomization, 'beverages': beverages, 'customization': customization})
 
 
 @login_required(login_url="/login/")
@@ -483,11 +559,16 @@ def dry_list(request):
         """)
         dry = cursor.fetchall()
     
+    CLcustomization = CompanyLogo.objects.first()
+
+    if CLcustomization is None:
+        CLcustomization = CompanyLogo.objects.create()
+
     customization = NavBarCustomization.objects.first()
     if customization is None:
         customization = NavBarCustomization.objects.create()
 
-    return render(request, 'suppliers/dry_list.html', {'dry': dry, 'customization': customization})
+    return render(request, 'suppliers/dry_list.html', {'CLcustomization': CLcustomization, 'dry': dry, 'customization': customization})
 
 
 @login_required(login_url="/login/")
@@ -500,15 +581,25 @@ def packaging_list(request):
         """)
         packaging = cursor.fetchall()
     
+    CLcustomization = CompanyLogo.objects.first()
+
+    if CLcustomization is None:
+        CLcustomization = CompanyLogo.objects.create()
+
     customization = NavBarCustomization.objects.first()
     if customization is None:
         customization = NavBarCustomization.objects.create()
 
-    return render(request, 'suppliers/packaging_list.html', {'packaging': packaging, 'customization': customization})
+    return render(request, 'suppliers/packaging_list.html', {'CLcustomization': CLcustomization, 'packaging': packaging, 'customization': customization})
 
 
 # === FOR CUSTOMIZING UI ===
 def customization(request):
+    CLcustomization = CompanyLogo.objects.first()
+
+    if CLcustomization is None:
+        CLcustomization = CompanyLogo.objects.create()
+
     customization = NavBarCustomization.objects.first()
     if customization is None:
         customization = NavBarCustomization.objects.create()
@@ -517,15 +608,20 @@ def customization(request):
     if Mcustomization is None:
         Mcustomization = MainPageCustomization.objects.create()
 
-    return render(request, "customization/customization.html", {'customization': customization, 'Mcustomization': Mcustomization})
+    return render(request, "customization/customization.html", {'CLcustomization': CLcustomization, 'customization': customization, 'Mcustomization': Mcustomization})
 
 
 def navbar_customization(request):
+    CLcustomization = CompanyLogo.objects.first()
+
+    if CLcustomization is None:
+        CLcustomization = CompanyLogo.objects.create()
+
     customization = NavBarCustomization.objects.first()
     if customization is None:
         customization = NavBarCustomization.objects.create()
     
-    return render(request, 'customization/navbar_customization.html', {'customization': customization})
+    return render(request, 'customization/navbar_customization.html', {'CLcustomization': CLcustomization, 'customization': customization})
 
 
 def save_navbar_customization(request):
@@ -549,6 +645,11 @@ def save_navbar_customization(request):
 
 
 def login_customization(request):
+    CLcustomization = CompanyLogo.objects.first()
+
+    if CLcustomization is None:
+        CLcustomization = CompanyLogo.objects.create()
+
     Lcustomization = LoginCustomization.objects.first()
     if Lcustomization is None:
         Lcustomization = LoginCustomization.objects.create()
@@ -557,7 +658,7 @@ def login_customization(request):
     if customization is None:
         customization = NavBarCustomization.objects.create()
     
-    return render(request, 'customization/login_customization.html', {'Lcustomization': Lcustomization, 'customization': customization})
+    return render(request, 'customization/login_customization.html', {'CLcustomization': CLcustomization, 'Lcustomization': Lcustomization, 'customization': customization})
 
 
 def save_login_customization(request):
@@ -583,6 +684,11 @@ def save_login_customization(request):
 
 
 def mainpage_customization(request):
+    CLcustomization = CompanyLogo.objects.first()
+
+    if CLcustomization is None:
+        CLcustomization = CompanyLogo.objects.create()
+
     Mcustomization = MainPageCustomization.objects.first()
     if Mcustomization is None:
         Mcustomization = MainPageCustomization.objects.create()
@@ -591,7 +697,7 @@ def mainpage_customization(request):
     if customization is None:
         customization = NavBarCustomization.objects.create()
     
-    return render(request, 'customization/mainpage_customization.html', {'Mcustomization': Mcustomization, 'customization': customization})
+    return render(request, 'customization/mainpage_customization.html', {'CLcustomization': CLcustomization, 'Mcustomization': Mcustomization, 'customization': customization})
 
 def save_mainpage_customization(request):
     if request.method == "POST":
@@ -617,3 +723,27 @@ def save_mainpage_customization(request):
         Mcustomization.save()
 
     return redirect('mainpage_customization')
+
+
+@login_required(login_url="/login/")
+def logo_customization(request):
+    CLcustomization = CompanyLogo.objects.first()
+
+    if CLcustomization is None:
+        CLcustomization = CompanyLogo.objects.create()
+
+    customization = NavBarCustomization.objects.first()
+    if customization is None:
+        customization = NavBarCustomization.objects.create()
+
+    if request.method == "POST":
+        form = LogoForm(request.POST, request.FILES, instance=CLcustomization)
+
+        if form.is_valid():
+            form.save()
+            return redirect('logo_customization')
+        
+    else:
+            form = LogoForm(instance=CLcustomization)
+
+    return render(request, 'customization/logo_customization.html', {'CLcustomization': CLcustomization, 'customization': customization, 'form': form})

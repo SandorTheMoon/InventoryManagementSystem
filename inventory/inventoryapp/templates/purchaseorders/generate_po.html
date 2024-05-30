@@ -28,9 +28,31 @@
 <body>
 
     <div class="navigation-bar">
+        {% if CLcustomization.logo %}
+            <img src="{{ CLcustomization.logo.url }}" class="nav-logo" height="50px" width="50px" alt="Logo">
+        {% else %}
+            <p>No Image</p>
+        {% endif %}
         <h1>Generate {{ customization.company_name }}'s Purchase Order</h1>
 
         <div class="navigation-bar-buttons">
+            {% if request.user.username == 'meat' %}
+                <a href="{% url 'meats_list' %}"><h3>Home</h3></a>
+            {% elif request.user.username == 'baked' %}
+                <a href="{% url 'baked_list' %}"><h3>Home</h3></a>
+            {% elif request.user.username == 'beverages' %}
+                <a href="{% url 'beverages_list' %}"><h3>Home</h3></a>
+            {% elif request.user.username == 'condiments' %}
+                <a href="{% url 'condiments_list' %}"><h3>Home</h3></a>
+            {% elif request.user.username == 'dairy' %}
+                <a href="{% url 'dairy_list' %}"><h3>Home</h3></a>
+            {% elif request.user.username == 'dry' %}
+                <a href="{% url 'dry_list' %}"><h3>Home</h3></a>
+            {% elif request.user.username == 'packaging' %}
+                <a href="{% url 'packaging_list' %}"><h3>Home</h3></a>
+            {% elif request.user.username == 'plants' %}
+                <a href="{% url 'plants_list' %}"><h3>Home</h3></a>
+            {% endif %}
             <a href="{% url 'generate_po' %}"><h3>Generate Purchase Order</h3></a>
             <a href="{% url 'my_generated_po' %}"><h3>My Generated Orders</h3></a>
 
