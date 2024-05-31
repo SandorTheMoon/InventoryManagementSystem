@@ -42,10 +42,14 @@
 </head>
 <body>
     <section>
-        {% if countPO != None %}
+        {% if countPO != 0 %}
             <div class="notif-container">
                 <h1 class="notif">{{ countPO }} pending purchase orders!</h1>
             </div>
+        {% else %}
+        <div class="notif-container">
+            <h1 class="notif">No pending purchase orders.</h1>
+        </div>
         {% endif %}
         <div class="home-title">
             <h1>Inventory</h1>
