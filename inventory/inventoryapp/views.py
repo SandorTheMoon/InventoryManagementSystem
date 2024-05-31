@@ -71,6 +71,9 @@ def home_page(request):
     Mcustomization = MainPageCustomization.objects.first()
     if Mcustomization is None:
         Mcustomization = MainPageCustomization.objects.create()
+
+    PO = PurchaseOrder.objects.filter(order_status=None)
+    countPO = PO.count()
     
     return render(request, "home/homepage.html", {
         'meats_products': meats_products,
@@ -84,7 +87,8 @@ def home_page(request):
 
         'CLcustomization': CLcustomization, 
         'customization': customization,
-        'Mcustomization': Mcustomization
+        'Mcustomization': Mcustomization,
+        'countPO': countPO
     })
 
 
