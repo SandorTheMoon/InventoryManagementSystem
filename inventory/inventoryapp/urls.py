@@ -6,26 +6,19 @@ from django.conf import settings
 urlpatterns = [
     path("", views.home_page, name="home"),
     path("addproduct/", views.addproduct_page, name="addproduct"),
-    path('update_product/<str:category>/<int:product_id>/', views.update_product, name='update_product'),
-    path('delete_product/<str:category>/<int:product_id>/', views.delete_product, name='delete_product'),
+    path('update_product/<int:product_id>/', views.update_product, name='update_product'),
+    path('delete_product/<int:product_id>/', views.delete_product, name='delete_product'),
     path('my_po/', views.my_po, name="my_po"),
     path('my_po_details/<int:pk>/', views.my_po_details, name="my_po_details"),
     path("login/", views.login_page, name="login"),
+    path("register/", views.registersupplier_page, name="register"),
     path("logout/", views.logout_page, name="logout"),
 
     # === SUPPLIERS' URLS ===
     path("generate_po/", views.generate_po, name="generate_po"),
     path('my_generated_po/', views.my_generated_po, name='my_generated_po'),
     path('my_generated_po_details/<int:pk>/', views.my_generated_po_details, name='my_generated_po_details'),
-    path("meats_list/", views.meats_list, name="meats_list"),
-    path("baked_list/", views.baked_list, name="baked_list"),
-    path("dairy_list/", views.dairy_list, name="dairy_list"),
-    path("plants_list/", views.plants_list, name="plants_list"),
-    path("condiments_list/", views.condiments_list, name="condiments_list"),
-    path("beverages_list/", views.beverages_list, name="beverages_list"),
-    path("dry_list/", views.dry_list, name="dry_list"),
-    path("packaging_list/", views.packaging_list, name="packaging_list"),
-
+    path("products_list/", views.products_list, name="products_list"),
 
     # === UI CUSTOMIZATION URLS ===
     path("customization/", views.customization, name="customization"),

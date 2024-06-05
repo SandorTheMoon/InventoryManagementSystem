@@ -44,11 +44,11 @@
     <section>
         {% if countPO != 0 %}
             <div class="notif-container">
-                <h1 class="notif">{{ countPO }} pending purchase orders!</h1>
+                <h1 class="notif">{{ countPO }} pending sales orders!</h1>
             </div>
         {% else %}
         <div class="notif-container">
-            <h1 class="notif">No pending purchase orders.</h1>
+            <h1 class="notif">No pending sales orders.</h1>
         </div>
         {% endif %}
         <div class="home-title">
@@ -69,7 +69,7 @@
                 <div class="product-cell action">Action</div>
             </div>
 
-            {% for product in meats_products %}
+            {% for product in products %}
                 <div class="product-row">
                     <div class="product-cell">{{ product.id }}</div>
                     <div class="product-cell">{{ product.name }}</div>
@@ -79,139 +79,14 @@
                     <div class="product-cell">{{ product.quantity_in_stock }}</div>
                     <div class="product-cell">{{ product.unit_of_measurement }}</div>
                     <div class="product-cell">{{ product.reorder_level }}</div>
-                    <div class="product-cell">{{ product.supplier }}</div>
+                    <div class="product-cell">{{ product.supplier.company_name }}</div>
                     <div class="product-cell action">
-                        <a href="{% url 'update_product' 'Meats' product.id %}">Update</a> |
-                        <a href="{% url 'delete_product' product.category product.id %}">Delete</a>
+                        <a href="{% url 'update_product' product.id %}">Update</a> |
+                        <a href="{% url 'delete_product' product.id %}">Delete</a>
                     </div>
                 </div>
             {% endfor %}
-
-            {% for product in baked_products %}
-                <div class="product-row">
-                    <div class="product-cell">{{ product.id }}</div>
-                    <div class="product-cell">{{ product.name }}</div>
-                    <div class="product-cell">{{ product.category }}</div>
-                    <div class="product-cell">{{ product.description }}</div>
-                    <div class="product-cell">₱ {{ product.price }}</div>
-                    <div class="product-cell">{{ product.quantity_in_stock }}</div>
-                    <div class="product-cell">{{ product.unit_of_measurement }}</div>
-                    <div class="product-cell">{{ product.reorder_level }}</div>
-                    <div class="product-cell">{{ product.supplier }}</div>
-                    <div class="product-cell action">
-                        <a href="{% url 'update_product' 'Baked' product.id %}">Update</a> |
-                        <a href="{% url 'delete_product' product.category product.id %}">Delete</a>
-                    </div>
-                </div>
-            {% endfor %}
-
-            {% for product in dairy_products %}
-                <div class="product-row">
-                    <div class="product-cell">{{ product.id }}</div>
-                    <div class="product-cell">{{ product.name }}</div>
-                    <div class="product-cell">{{ product.category }}</div>
-                    <div class="product-cell">{{ product.description }}</div>
-                    <div class="product-cell">₱ {{ product.price }}</div>
-                    <div class="product-cell">{{ product.quantity_in_stock }}</div>
-                    <div class="product-cell">{{ product.unit_of_measurement }}</div>
-                    <div class="product-cell">{{ product.reorder_level }}</div>
-                    <div class="product-cell">{{ product.supplier }}</div>
-                    <div class="product-cell action">
-                        <a href="{% url 'update_product' 'Dairy' product.id %}">Update</a> |
-                        <a href="{% url 'delete_product' product.category product.id %}">Delete</a>
-                    </div>
-                </div>
-            {% endfor %}
-
-            {% for product in plants_products %}
-                <div class="product-row">
-                    <div class="product-cell">{{ product.id }}</div>
-                    <div class="product-cell">{{ product.name }}</div>
-                    <div class="product-cell">{{ product.category }}</div>
-                    <div class="product-cell">{{ product.description }}</div>
-                    <div class="product-cell">₱ {{ product.price }}</div>
-                    <div class="product-cell">{{ product.quantity_in_stock }}</div>
-                    <div class="product-cell">{{ product.unit_of_measurement }}</div>
-                    <div class="product-cell">{{ product.reorder_level }}</div>
-                    <div class="product-cell">{{ product.supplier }}</div>
-                    <div class="product-cell action">
-                        <a href="{% url 'update_product' 'Plants' product.id %}">Update</a> |
-                        <a href="{% url 'delete_product' product.category product.id %}">Delete</a>
-                    </div>
-                </div>
-            {% endfor %}
-
-            {% for product in condiments_products %}
-                <div class="product-row">
-                    <div class="product-cell">{{ product.id }}</div>
-                    <div class="product-cell">{{ product.name }}</div>
-                    <div class="product-cell">{{ product.category }}</div>
-                    <div class="product-cell">{{ product.description }}</div>
-                    <div class="product-cell">₱ {{ product.price }}</div>
-                    <div class="product-cell">{{ product.quantity_in_stock }}</div>
-                    <div class="product-cell">{{ product.unit_of_measurement }}</div>
-                    <div class="product-cell">{{ product.reorder_level }}</div>
-                    <div class="product-cell">{{ product.supplier }}</div>
-                    <div class="product-cell action">
-                        <a href="{% url 'update_product' 'Condiments' product.id %}">Update</a> |
-                        <a href="{% url 'delete_product' product.category product.id %}">Delete</a>
-                    </div>
-                </div>
-            {% endfor %}
-
-            {% for product in beverages_products %}
-                <div class="product-row">
-                    <div class="product-cell">{{ product.id }}</div>
-                    <div class="product-cell">{{ product.name }}</div>
-                    <div class="product-cell">{{ product.category }}</div>
-                    <div class="product-cell">{{ product.description }}</div>
-                    <div class="product-cell">₱ {{ product.price }}</div>
-                    <div class="product-cell">{{ product.quantity_in_stock }}</div>
-                    <div class="product-cell">{{ product.unit_of_measurement }}</div>
-                    <div class="product-cell">{{ product.reorder_level }}</div>
-                    <div class="product-cell">{{ product.supplier }}</div>
-                    <div class="product-cell action">
-                        <a href="{% url 'update_product' 'Beverages' product.id %}">Update</a> |
-                        <a href="{% url 'delete_product' product.category product.id %}">Delete</a>
-                    </div>
-                </div>
-            {% endfor %}
-
-            {% for product in dry_products %}
-                <div class="product-row">
-                    <div class="product-cell">{{ product.id }}</div>
-                    <div class="product-cell">{{ product.name }}</div>
-                    <div class="product-cell">{{ product.category }}</div>
-                    <div class="product-cell">{{ product.description }}</div>
-                    <div class="product-cell">₱ {{ product.price }}</div>
-                    <div class="product-cell">{{ product.quantity_in_stock }}</div>
-                    <div class="product-cell">{{ product.unit_of_measurement }}</div>
-                    <div class="product-cell">{{ product.reorder_level }}</div>
-                    <div class="product-cell">{{ product.supplier }}</div>
-                    <div class="product-cell action">
-                        <a href="{% url 'update_product' 'Dry' product.id %}">Update</a> |
-                        <a href="{% url 'delete_product' product.category product.id %}">Delete</a>
-                    </div>
-                </div>
-            {% endfor %}
-
-            {% for product in packaging_products %}
-                <div class="product-row">
-                    <div class="product-cell">{{ product.id }}</div>
-                    <div class="product-cell">{{ product.name }}</div>
-                    <div class="product-cell">{{ product.category }}</div>
-                    <div class="product-cell">{{ product.description }}</div>
-                    <div class="product-cell">₱ {{ product.price }}</div>
-                    <div class="product-cell">{{ product.quantity_in_stock }}</div>
-                    <div class="product-cell">{{ product.unit_of_measurement }}</div>
-                    <div class="product-cell">{{ product.reorder_level }}</div>
-                    <div class="product-cell">{{ product.supplier }}</div>
-                    <div class="product-cell action">
-                        <a href="{% url 'update_product' 'Packaging' product.id %}">Update</a> |
-                        <a href="{% url 'delete_product' product.category product.id %}">Delete</a>
-                    </div>
-                </div>
-            {% endfor %}
+            
         </div>
     </section>
 </body>

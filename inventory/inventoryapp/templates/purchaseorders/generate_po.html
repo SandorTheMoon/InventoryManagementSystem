@@ -23,6 +23,10 @@
         .navigation-bar button {
             color: {{ customization.button_text_color }};
         }
+
+        .error {
+            color: red;
+        }
     </style>
 </head>
 <body>
@@ -33,28 +37,12 @@
         {% else %}
             <p>No Image</p>
         {% endif %}
-        <h1>Generate {{ customization.company_name }}'s Purchase Order</h1>
+        <h1>Generate {{ customization.company_name }}'s Sales Order</h1>
 
         <div class="navigation-bar-buttons">
-            {% if request.user.username == 'meat' %}
-                <a href="{% url 'meats_list' %}"><h3>Home</h3></a>
-            {% elif request.user.username == 'baked' %}
-                <a href="{% url 'baked_list' %}"><h3>Home</h3></a>
-            {% elif request.user.username == 'beverages' %}
-                <a href="{% url 'beverages_list' %}"><h3>Home</h3></a>
-            {% elif request.user.username == 'condiments' %}
-                <a href="{% url 'condiments_list' %}"><h3>Home</h3></a>
-            {% elif request.user.username == 'dairy' %}
-                <a href="{% url 'dairy_list' %}"><h3>Home</h3></a>
-            {% elif request.user.username == 'dry' %}
-                <a href="{% url 'dry_list' %}"><h3>Home</h3></a>
-            {% elif request.user.username == 'packaging' %}
-                <a href="{% url 'packaging_list' %}"><h3>Home</h3></a>
-            {% elif request.user.username == 'plants' %}
-                <a href="{% url 'plants_list' %}"><h3>Home</h3></a>
-            {% endif %}
-            <a href="{% url 'generate_po' %}"><h3>Generate Purchase Order</h3></a>
-            <a href="{% url 'my_generated_po' %}"><h3>My Generated Orders</h3></a>
+            <a href="{% url 'products_list' %}"><h3>Home</h3></a>
+            <a href="{% url 'generate_po' %}"><h3>Generate Sales Order</h3></a>
+            <a href="{% url 'my_generated_po' %}"><h3>My Orders</h3></a>
 
             <form action="{% url 'logout' %}">
                 <button>Logout</button>
@@ -63,44 +51,78 @@
     </div>
 
     <div class="form-container">
-        <h1>Create Purchase Order</h1>
+        <h1>Create Sales Order</h1>
         <form action="{% url 'generate_po' %}" method="POST" class="purchase-order-form">
             {% csrf_token %}
             <div class="form-group">
                 <label for="id_company_name">Company Name:</label>
                 {{ form.company_name }}
+                {% if form.errors.company_name %}
+                    <p class="error">1{{ form.errors.company_name }}</p>
+                {% endif %}
             </div>
             <div class="form-group">
                 <label for="id_company_address">Company Address:</label>
                 {{ form.company_address }}
+                {% if form.errors.company_address %}
+                    <p class="error">2{{ form.errors.company_address }}</p>
+                {% endif %}
             </div>
             <div class="form-group">
                 <label for="id_supplier_name">Supplier Name:</label>
                 {{ form.supplier_name }}
+                {% if form.errors.supplier_name %}
+                    <p class="error">3{{ form.errors.supplier_name }}</p>
+                {% endif %}
             </div>
             <div class="form-group">
                 <label for="id_supplier_address">Supplier Address:</label>
                 {{ form.supplier_address }}
+                {% if form.errors.supplier_address %}
+                    <p class="error">4{{ form.errors.supplier_address }}</p>
+                {% endif %}
             </div>
             <div class="form-group">
                 <label for="id_name">Product Name:</label>
                 {{ form.name }}
+                {% if form.errors.name %}
+                    <p class="error">5{{ form.errors.name }}</p>
+                {% endif %}
+            </div>
+            <div class="form-group">
+                <label for="id_category">Product Category:</label>
+                {{ form.category }}
+                {% if form.errors.category %}
+                    <p class="error">6{{ form.errors.category }}</p>
+                {% endif %}
             </div>
             <div class="form-group">
                 <label for="id_description">Description:</label>
                 {{ form.description }}
+                {% if form.errors.description %}
+                    <p class="error">7{{ form.errors.description }}</p>
+                {% endif %}
             </div>
             <div class="form-group">
                 <label for="id_quantity">Quantity:</label>
                 {{ form.quantity }}
+                {% if form.errors.quantity %}
+                    <p class="error">8{{ form.errors.quantity }}</p>
+                {% endif %}
             </div>
             <div class="form-group">
                 <label for="id_unit_of_measurement">Unit of Measurement:</label>
                 {{ form.unit_of_measurement }}
+                {% if form.errors.unit_of_measurement %}
+                    <p class="error">9{{ form.errors.unit_of_measurement }}</p>
+                {% endif %}
             </div>
             <div class="form-group">
                 <label for="id_unit_price">Unit Price:</label>
                 {{ form.unit_price }}
+                {% if form.errors.unit_price %}
+                    <p class="error">10{{ form.errors.unit_price }}</p>
+                {% endif %}
             </div>
             <div class="form-group">
                 <button type="submit">Save Purchase Order</button>

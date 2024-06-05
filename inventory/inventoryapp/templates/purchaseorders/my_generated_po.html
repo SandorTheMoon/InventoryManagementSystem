@@ -32,7 +32,7 @@
         {% else %}
             <p>No Image</p>
         {% endif %}
-        <h1>{{ customization.company_name }}'s Purchase Order</h1>
+        <h1>{{ customization.company_name }}'s Sales Order</h1>
 
         <div class="navigation-bar-buttons">
             {% if request.user.username == 'meat' %}
@@ -52,8 +52,9 @@
             {% elif request.user.username == 'plants' %}
                 <a href="{% url 'plants_list' %}"><h3>Home</h3></a>
             {% endif %}
-            <a href="{% url 'generate_po' %}"><h3>Generate Purchase Order</h3></a>
-            <a href="{% url 'my_generated_po' %}"><h3>My Generated Orders</h3></a>
+            <a href="{% url 'products_list' %}"><h3>Home</h3></a>
+            <a href="{% url 'generate_po' %}"><h3>Generate Sales Order</h3></a>
+            <a href="{% url 'my_generated_po' %}"><h3>My Orders</h3></a>
 
             <form action="{% url 'logout' %}">
                 <button>Logout</button>
@@ -62,7 +63,7 @@
     </div>
 
     <div class="purchase-orders-container">
-        <h1>My Purchase Orders</h1>
+        <h1>My Sales Orders</h1>
         {% if purchase_orders %}
             {% for purchase_order in purchase_orders %}
                 <div class="purchase-order">
@@ -81,7 +82,7 @@
                 </div>
             {% endfor %}
         {% else %}
-            <p>No purchase orders found.</p>
+            <p>No sales orders found.</p>
         {% endif %}
     </div>
 </body>

@@ -12,7 +12,7 @@
 </head>
 <body>
     <div class="purchase-orders-container">
-        <h1>My Purchase Orders</h1>
+        <h1>My Sales Orders</h1>
         {% if purchase_orders %}
             {% for purchase_order in purchase_orders %}
                 <div class="purchase-order">
@@ -31,7 +31,7 @@
                 </div>
             {% endfor %}
         {% else %}
-            <p>No purchase orders found.</p>
+            <p>No sales orders found.</p>
         {% endif %}
     </div>
 </body>
