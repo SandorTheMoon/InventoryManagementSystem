@@ -134,6 +134,7 @@ def update_product(request, product_id):
             product.quantity_in_stock = form.cleaned_data['quantity_in_stock']
             product.unit_of_measurement = form.cleaned_data['unit_of_measurement']
             product.reorder_level = form.cleaned_data['reorder_level']
+            product.expiration_date = form.cleaned_data['expiration_date']
             product.supplier = form.cleaned_data['supplier']
             product.save()
             return redirect('home')
@@ -146,6 +147,7 @@ def update_product(request, product_id):
             'quantity_in_stock': product.quantity_in_stock,
             'unit_of_measurement': product.unit_of_measurement,
             'reorder_level': product.reorder_level,
+            'expiration_date': product.expiration_date,
             'supplier': product.supplier
         })
 

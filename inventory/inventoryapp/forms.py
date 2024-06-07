@@ -35,6 +35,7 @@ class AddProductForm(forms.Form):
     quantity_in_stock = forms.IntegerField()
     unit_of_measurement = forms.CharField(max_length=50)
     reorder_level = forms.IntegerField()
+    expiration_date = forms.DateField(widget=forms.TextInput(attrs={'class': 'form-control', 'type':'date'}))
     supplier = SupplierModelChoiceField(queryset=UserProfile.objects.filter(is_supplier=True))
 
 class PurchaseOrderForm(forms.ModelForm):

@@ -20,10 +20,11 @@ class Products(models.Model):
     quantity_in_stock = models.IntegerField()
     unit_of_measurement = models.CharField(max_length=50)
     reorder_level = models.IntegerField()
+    expiration_date = models.DateField(null=True, blank=True)
     supplier = models.ForeignKey(UserProfile, on_delete=models.CASCADE, limit_choices_to={'is_supplier': True})
     
     def __str__(self):
-        return self.company_name
+        return self.name
     
 
 # === PURCHASE ORDERS ===

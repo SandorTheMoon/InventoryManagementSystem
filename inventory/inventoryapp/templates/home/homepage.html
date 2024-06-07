@@ -65,6 +65,7 @@
                 <div class="product-cell">Quantity in Stock</div>
                 <div class="product-cell">Unit of Measurement</div>
                 <div class="product-cell">Reorder Level</div>
+                <div class="product-cell">Expiration Date</div>
                 <div class="product-cell">Supplier</div>
                 <div class="product-cell action">Action</div>
             </div>
@@ -79,6 +80,7 @@
                     <div class="product-cell">{{ product.quantity_in_stock }}</div>
                     <div class="product-cell">{{ product.unit_of_measurement }}</div>
                     <div class="product-cell">{{ product.reorder_level }}</div>
+                    <div class="product-cell">{{ product.expiration_date }}</div>
                     <div class="product-cell">{{ product.supplier.company_name }}</div>
                     <div class="product-cell action">
                         <a href="{% url 'update_product' product.id %}">Update</a> |
