@@ -22,7 +22,7 @@ def registersupplier_page(request):
             user = User.objects.create_user(username=username, password=password)
             profile = UserProfile(user=user, company_name=company_name)
             profile.save()
-            return redirect('meats_list')
+            return redirect('login')
         
     else:
         form = UserRegistrationForm()
